@@ -40,11 +40,11 @@ CREATE TABLE sale (
   id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER REFERENCES users(id) NOT NULL,
   product_id INTEGER REFERENCES products(id) NOT NULL,
-  shipping_cost INTEGER,
-  country VARCHAR(255),
-  street VARCHAR(255),
-  city VARCHAR(255),
-  province VARCHAR(255),
-  postal VARCHAR(255),
+  shipping_cost INTEGER DEFAULT 10,
+  country VARCHAR(255) NOT NULL,
+  street VARCHAR(255) NOT NULL,
+  city VARCHAR(255) NOT NULL,
+  province VARCHAR(255) NOT NULL,
+  postal VARCHAR(255) NOT NULL,
   shipping_date DATE DEFAULT NOW() + INTERVAL '2 DAY'
 );
