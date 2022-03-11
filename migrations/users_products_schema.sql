@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS products CASCADE;
+DROP TABLE IF EXISTS cards CASCADE;
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
@@ -10,8 +11,7 @@ CREATE TABLE users (
   street VARCHAR(255) NOT NULL,
   city VARCHAR(255) NOT NULL,
   province VARCHAR(255) NOT NULL,
-  postal VARCHAR(255) NOT NULL,
-  card_number INTEGER
+  postal VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE products (
@@ -24,4 +24,13 @@ CREATE TABLE products (
   image TEXT NOT NULL,
   rating INTEGER,
   weight INTEGER
+);
+
+CREATE TABLE cards (
+  id SERIAL PRIMARY KEY NOT NULL,
+  user_id INTEGER REFERENCES users(id) NOT NULL,
+  brand VARCHAR(255) NOT NULL,
+  number BIGINT NOT NULL,
+  exp_date VARCHAR(255) NOT NULL,
+  cvc VARCHAR(255) NOT NULL
 );
