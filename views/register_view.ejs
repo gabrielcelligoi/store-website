@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap Link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
   <title>Register - PetStore</title>
 </head>
 <body>
@@ -11,38 +15,52 @@
   <main>
     <h3>Create Account</h3>
     <form action="/register" method="POST">
-      <div>
-        <label for="name">Name</label>
-        <input type="text" name="name" placeholder="Enter full name">
+
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" placeholder="Your full name">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" placeholder="Your best email">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" placeholder="Password">
+        </div>
       </div>
-      <div>
-        <label for="email">Email</label>
-        <input type="email" name="email" placeholder="Enter email">
+
+
+      <div class="form-group">
+        <div>
+          <label for="adress">Address</label>
+          <input type="text" class="form-control" id="adress" placeholder="1234 Main St, complement">
+        </div>
       </div>
-      <div>
-        <label for="country">Country</label>
-        <input type="text" name="country" placeholder="Enter country">
+
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="country">Country</label>
+          <input type="text" class="form-control" id="country">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="province">Province or State</label>
+          <input type="text" class="form-control" id="province">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="city">City</label>
+          <input type="text" class="form-control" id="city">
+        </div>
       </div>
-      <div>
-        <label for="province">Province or State</label>
-        <input type="text" name="province" placeholder="Enter province/state">
+
+      <div class="form-group">
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="is_seller">
+          <label class="form-check-label" for="is_seller">Creating Account as a Seller?</label>
+        </div>
       </div>
-      <div>
-        <label for="city">City</label>
-        <input type="text" name="city" placeholder="Enter city">
-      </div>
-      <div>
-        <label for="street">Street</label>
-        <input type="text" name="street" placeholder="Enter street">
-      </div>
-      <div>
-        <label for="password">Password</label>
-        <input type="password" name="password" placeholder="Enter password">
-      </div>
-      <div>
-        <label for="is_seller">Creating Account as a Seller?</label>
-        <input type="checkbox" name="is_seller">
-      </div>
+
     </form>
   </main>
 
