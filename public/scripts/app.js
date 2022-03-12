@@ -1,6 +1,6 @@
 // Client facing scripts here
 $(() => {
-  $(".dropbtn").click(function(event) {
-    $(".menu").slideToggle("slow");
+  $(".dropbtn").click(function() {
+    $(".menu").slideToggle();
   })
 })
