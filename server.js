@@ -63,6 +63,5 @@ app.get("/register", (req, res) => {
 });
 
 app.get("/newlisting", (req, res) => {
-  console.log("test");
   res.render("newlisting");
 });

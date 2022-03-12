@@ -1,0 +1,44 @@
+.centered-flex-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #dedede;
+}
+
+.form-shadow-list {
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  border-radius: 20px;
+  width: 500px;
+  box-shadow: -10px -10px 25px 10px white, 5px 5px 25px 10px #555;
+  font-family: 'Work Sans', sans-serif;
+
+  h3 {
+    text-align: center;
+  }
+  #new-listing-form {
+    text-align: left;
+  }
+  label{
+    float: left;
+    clear: left;
+    width: 30%;
+    text-align: right;
+}
+    input {
+    float:left
+    }
+
+    button#create_new_listing {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width:100%
+    }
+    #create-listing-btn {
+      text-align: center;
+    }
+}
+

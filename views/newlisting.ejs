@@ -1,21 +1,47 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
-
-
-    <title>Hello, world!</title>
+    <title>Create New Listing</title>
     <%- include('partials/_header') %>
-
   </head>
-  <body>
+
+<body>
+  <main class="centered-flex-list">
+
+    <div class="form-shadow-list">
+      <h3>Create New Listing</h3>
+      <form action="/img" method="POST" id="load-img"></form>
+      <form action="/newlisting" method="POST" id="new-listing-form">
+
+        <label for="product_name" name="product_name">Product Name:&nbsp;</label>
+        <input type="text" id="product_name" form="new-listing-form">
+        <br>
+        <br>
+        <label id="description_label" for="description" name="description"></label>
+        <textarea rows="2" cols="50" id="description" placeholder="Description" form="new-listing-form"></textarea>
+        <br>
+        <br>
+        <label for="price" name="price">Price: &nbsp;</label>
+        <input type="text" id="price" form="new-listing-form">
+        <br>
+        <br>
+        <label for="starting_quantity" name="starting_quantity">Stock:&nbsp;</label>
+        <input type="text" id="starting_quantity" form="new-listing-form">
+        <br>
+        <br>
+
+            <label for="imgURL" name="imgURL">Image URL:&nbsp;</label>
+            <input type="text" id="imgURL" form="load-img">
+            &nbsp;
+            <button type="submit" form="load-img">Upload</button>
+        <br>
+        <br>
+        <button id="create_new_listing" form="new-listing-form" type="submit">Create Listing</button>
+      </form>
+      <div id="imageContainer"></div>
+  </main>
 
 
-    <h1>Hello, world!</h1>
 
   </body>
 </html>
