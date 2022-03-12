@@ -1,3 +1,25 @@
+
+
+.centered-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #dedede;
+}
+
+.form-shadow {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 25px;
+  border-radius: 20px;
+  width: 500px;
+  box-shadow: -10px -10px 25px 10px white, 5px 5px 25px 10px #555;
+  font-family: 'Work Sans', sans-serif;
+}
+
 body {
 
   background: #EDEDED;
