@@ -78,10 +78,21 @@ app.post("/register", (req, res) => {
   const userCountry = req.body.country;
   const userProvince = req.body.province;
   const userCity = req.body.city;
+  const userPostal = req.body.postal;
   const userPasswordHashed = bcrypt.hashSync(userPassword, 10);
+  const queryParams = [userName, userEmail, userPasswordHashed, userCountry, userAddress, userCity, userProvince, userPostal];
 
-
-
+  return db.query(`
+  INSERT INTO users (name, email, password, country, street, city, province, postal)
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+  RETURNING *;
+  `, queryParams)
+  .then(data => {
+    return data.rows[0];
+  })
+  .catch(error => {
+    console.log(error.message);
+  })
 
 });
 
