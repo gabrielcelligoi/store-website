@@ -14,6 +14,9 @@ const dbParams = require("./lib/db.js");
 const db = new Pool(dbParams);
 db.connect();
 
+//Body-parser
+const bodyParser = require("body-parser");
+
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
@@ -32,6 +35,8 @@ app.use(
 );
 
 app.use(express.static("public"));
+
+app.use(bodyParser.urlencoded({extended: true}));
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
@@ -60,6 +65,10 @@ app.listen(PORT, () => {
 
 app.get("/register", (req, res) => {
   res.render("register_view");
+});
+
+app.post("/register", (req, res) => {
+  console.log(req.body);
 });
 
 app.get("/newlisting", (req, res) => {
