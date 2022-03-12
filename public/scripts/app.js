@@ -1,3 +1,4 @@
+
 // Client facing scripts here
 $(() => {
   $(".dropbtn").click(function() {        //dropdown menu on header
@@ -8,8 +9,10 @@ $(() => {
   $("#load-img").submit(function(event) {
     event.preventDefault();
     const url = document.getElementById("imgURL").value
+    document.getElementById("hiddenImgUrl").value = url
+
     $.ajax({
-      type: "POST",
+      type: "GET",
       url: "/img",
       data: url,
       success: loadImg(url)

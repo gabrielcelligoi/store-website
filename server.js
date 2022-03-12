@@ -67,10 +67,12 @@ app.get("/newlisting", (req, res) => {
 });
 
 app.post("/newlisting", (req,res) => {
-  console.log(req.body)
-  console.log(res)
+
+    console.log(req.body)
+
+
 })
 
-app.post("/img", (req,res) => {
-  console.log(req.body)
-})
+// app.post("/img", (req,res) => {
+//   console.log(req.body)
+// })
