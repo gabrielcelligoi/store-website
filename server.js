@@ -17,6 +17,9 @@ db.connect();
 //Body-parser
 const bodyParser = require("body-parser");
 
+//BCrypt
+const bcrypt = require("bcryptjs");
+
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
@@ -68,7 +71,18 @@ app.get("/register", (req, res) => {
 });
 
 app.post("/register", (req, res) => {
-  console.log(req.body);
+  const userName = req.body.name;
+  const userEmail = req.body.email;
+  const userPassword = req.body.password;
+  const userAddress = req.body.address;
+  const userCountry = req.body.country;
+  const userProvince = req.body.province;
+  const userCity = req.body.city;
+  const userPasswordHashed = bcrypt.hashSync(userPassword, 10);
+
+
+
+
 });
 
 app.get("/newlisting", (req, res) => {
