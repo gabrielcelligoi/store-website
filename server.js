@@ -59,5 +59,10 @@ app.listen(PORT, () => {
 });
 
 app.get("/register", (req, res) => {
-  res.render("register_view")
-})
+  res.render("register_view");
+});
+
+app.get("/newlisting", (req, res) => {
+  console.log("test");
+  res.render("newlisting");
+});
