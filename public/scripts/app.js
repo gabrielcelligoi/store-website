@@ -17,9 +17,9 @@ $(() => {
   })
 
 
-const loadImg = function(url) {
-  const $img = $(`<img id="loaded" src=${url}>`)
-
-  $("#imageContainer").append($img)
-}
+  const loadImg = function(url) {
+    $("#imageContainer").empty()
+    const $img = $(`<img id="loaded" src=${url}>`)
+    $("#imageContainer").append($img)
+  }
 })
