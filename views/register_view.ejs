@@ -10,7 +10,40 @@
 
   <main>
     <h3>Create Account</h3>
-
+    <form action="/register" method="POST">
+      <div>
+        <label for="name">Name</label>
+        <input type="text" name="name" placeholder="Enter full name">
+      </div>
+      <div>
+        <label for="email">Email</label>
+        <input type="email" name="email" placeholder="Enter email">
+      </div>
+      <div>
+        <label for="country">Country</label>
+        <input type="text" name="country" placeholder="Enter country">
+      </div>
+      <div>
+        <label for="province">Province or State</label>
+        <input type="text" name="province" placeholder="Enter province/state">
+      </div>
+      <div>
+        <label for="city">City</label>
+        <input type="text" name="city" placeholder="Enter city">
+      </div>
+      <div>
+        <label for="street">Street</label>
+        <input type="text" name="street" placeholder="Enter street">
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <input type="password" name="password" placeholder="Enter password">
+      </div>
+      <div>
+        <label for="is_seller">Creating Account as a Seller?</label>
+        <input type="checkbox" name="is_seller">
+      </div>
+    </form>
   </main>
 
 </body>
