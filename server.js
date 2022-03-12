@@ -7,7 +7,7 @@ const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
-
+const bodyParser = require('body-parser');
 // PG database client/connection setup
 const { Pool } = require("pg");
 const dbParams = require("./lib/db.js");
@@ -65,3 +65,12 @@ app.get("/register", (req, res) => {
 app.get("/newlisting", (req, res) => {
   res.render("newlisting");
 });
+
+app.post("/newlisting", (req,res) => {
+  console.log(req.body)
+  console.log(res)
+})
+
+app.post("/img", (req,res) => {
+  console.log(req.body)
+})

@@ -14,30 +14,30 @@
       <form action="/newlisting" method="POST" id="new-listing-form">
 
         <label for="product_name" name="product_name">Product Name:&nbsp;</label>
-        <input type="text" id="product_name" form="new-listing-form">
+        <input type="text" id="product_name" name="product_name" form="new-listing-form">
         <br>
         <br>
         <label id="description_label" for="description" name="description"></label>
-        <textarea rows="2" cols="50" id="description" placeholder="Description" form="new-listing-form"></textarea>
+        <textarea rows="2" cols="50" id="description" name="description" placeholder="Description" form="new-listing-form"></textarea>
         <br>
         <br>
         <label for="price" name="price">Price: &nbsp;</label>
-        <input type="text" id="price" form="new-listing-form">
+        <input type="text" id="price" form="new-listing-form" name="price">
         <br>
         <br>
         <label for="starting_quantity" name="starting_quantity">Stock:&nbsp;</label>
-        <input type="text" id="starting_quantity" form="new-listing-form">
+        <input type="text" id="starting_quantity" form="new-listing-form" name="starting_quantity">
         <br>
         <br>
-
             <label for="imgURL" name="imgURL">Image URL:&nbsp;</label>
-            <input type="text" id="imgURL" form="load-img">
+            <input type="text" id="imgURL" form="load-img" name="imgURL">
             &nbsp;
             <button type="submit" form="load-img">Upload</button>
         <br>
         <br>
         <button id="create_new_listing" form="new-listing-form" type="submit">Create Listing</button>
       </form>
+      <br>
       <div id="imageContainer"></div>
   </main>
 
