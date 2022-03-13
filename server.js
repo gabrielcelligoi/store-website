@@ -9,7 +9,7 @@ const app = express();
 const morgan = require("morgan");
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
-const { getUserWithEmail, insertNewUser } = require("./database");
+const { getUserWithEmail, insertNewUser, getProduct } = require("./database");
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -149,8 +149,21 @@ app.post("/newlisting", (req,res) => {
 })
 
 app.get("/products/:product_id", (req, res) => {
+  getProduct(req.params.product_id)
+  .then(product => {
+    const templateVars = {
+      name: product[0].name,
+      price: product[0].price / 100,
+      stock: product[0].stock,
+      description: product[0].description,
+      image: product[0].image
+    }
+    console.log(product[0].name)
+    res.render("product", templateVars)
+  })
 
-  res.render("product")
+
+
 
 });
 

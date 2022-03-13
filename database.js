@@ -32,4 +32,19 @@ const getUserWithEmail = function(email) {
   });
 };
 
-module.exports = { getUserWithEmail, insertNewUser };
+const getProduct = function(id) {
+  return db.query(`
+  SELECT *
+  FROM products
+  WHERE id = $1;
+  `, [id])
+  .then(product => {
+    product.rows
+    return product.rows
+  })
+  .catch(error => {
+    console.log(error.message)
+  })
+}
+
+module.exports = { getUserWithEmail, insertNewUser, getProduct };
