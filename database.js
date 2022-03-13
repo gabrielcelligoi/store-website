@@ -39,7 +39,6 @@ const getProduct = function(id) {
   WHERE id = $1;
   `, [id])
   .then(product => {
-    product.rows
     return product.rows
   })
   .catch(error => {
@@ -47,4 +46,17 @@ const getProduct = function(id) {
   })
 }
 
-module.exports = { getUserWithEmail, insertNewUser, getProduct };
+const createListing = function(values) {
+  return db.query(`
+  INSERT INTO products (seller_id, name, description, price, stock, image)
+  VALUES ($1, $2, $3, $4, $5, $6);
+  `, values)
+  .then(product => {
+    return product.rows
+  })
+  .catch(error => {
+    console.log(error.message)
+  })
+}
+
+module.exports = { getUserWithEmail, insertNewUser, getProduct, createListing };

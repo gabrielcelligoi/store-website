@@ -9,7 +9,7 @@ const app = express();
 const morgan = require("morgan");
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
-const { getUserWithEmail, insertNewUser, getProduct } = require("./database");
+const { getUserWithEmail, insertNewUser, getProduct, createListing } = require("./database");
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -143,9 +143,15 @@ app.get("/newlisting", (req, res) => {
 });
 
 app.post("/newlisting", (req,res) => {
+  const valueArray = [1,      //FIRST VALUE WHICH IS SELLER ID, TO BE REPLACED WITH REQ.SESSION
+  req.body.product_name,
+  req.body.description,
+  req.body.price,
+  req.body.starting_quantity,
+  req.body.hiddenImgUrl]
 
-    console.log(req.body)
-
+  createListing(valueArray)
+  .then(res.redirect("/newlisting"))
 })
 
 app.get("/products/:product_id", (req, res) => {
