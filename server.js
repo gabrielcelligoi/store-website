@@ -9,7 +9,7 @@ const app = express();
 const morgan = require("morgan");
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
-const { getUserWithEmail } = require("./database");
+const { getUserWithEmail, insertNewUser } = require("./database");
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -93,17 +93,10 @@ app.post("/register", (req, res) => {
   const sellerRouting = req.body.routing;
   const querySellerParams = [sellerAccount, sellerRouting]
 
-  return db.query(`
-  INSERT INTO users (name, email, password, country, street, city, province, postal)
-  VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-  RETURNING *;
-  `, queryUserParams)
-  .then(data => {
-    return data.rows[0];
-  })
-  .catch(error => {
-    console.log(error.message);
-  })
+  insertNewUser(queryUserParams)
+
+
+  // const userInfo = getUserWithEmail(userEmail);
 
 });
 
