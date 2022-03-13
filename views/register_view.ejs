@@ -20,6 +20,28 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;1,200;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
 
+  <!-- External JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <!-- App JS I CANT MAKE THIS LINK WORK-->
+  <!-- <script type="text/javascript" src="../public/scripts/isChecked.js"></script> -->
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+      $('#is_seller').change(function() {
+        if ($(this).prop('checked')) {
+          $('#seller').slideDown();
+        } else {
+          $('seller').slideUp();
+        }
+      })
+
+    });
+  </script>
+
+
+
   <%- include('partials/_header') %>
 
   <title>Register - PetStore</title>
@@ -80,12 +102,29 @@
 
         <div class="form-group">
           <div class="form-check">
-            <input type="checkbox" class="form-check-input" name="is_seller">
+            <input type="checkbox" class="form-check-input" id="is_seller">
             <label class="form-check-label" for="is_seller">Creating Account as a Seller?</label>
           </div>
         </div>
 
+        <!-- if user is a seller -->
+        <div class="container" id="seller">
+          <h3>Direct Deposit Info</h3>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="account">Bank Account</label>
+              <input type="text" class="form-control" name="account">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="routing">Routing</label>
+              <input type="email" class="form-control" name="routing">
+            </div>
+          </div>
+        </div>
+
+      <div class="container">
         <button type="register" class="btn btn-dark">Submit</button>
+      </div>
 
       </div>
 

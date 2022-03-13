@@ -24,3 +24,14 @@ body {
 
   background: #EDEDED;
 }
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#seller {
+  display: none;
+}
