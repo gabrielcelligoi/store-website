@@ -8,17 +8,19 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const bodyParser = require('body-parser');
+const cookieSession = require('cookie-session');
+const { getUserWithEmail } = require("./database");
+
 // PG database client/connection setup
 const { Pool } = require("pg");
 const dbParams = require("./lib/db.js");
 const db = new Pool(dbParams);
 db.connect();
 
-//Body-parser
-const bodyParser = require("body-parser");
 
 //BCrypt
 const bcrypt = require("bcryptjs");
+
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -40,6 +42,11 @@ app.use(
 app.use(express.static("public"));
 
 app.use(bodyParser.urlencoded({extended: true}));
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ['key1']
+}));
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
@@ -107,6 +114,35 @@ app.get("/login", (req, res) => {
 app.post("/login", (req, res) => {
   const loginEmail = req.body.email;
   const loginPassword = req.body.password;
+
+  const login =  function(email, password) {
+    return getUserWithEmail(email)
+    .then(user => {
+      if (bcrypt.compareSync(password, user.password)) {
+        return user;
+      }
+      return null;
+    });
+  }
+
+
+
+  // const teste = getUserWithEmail(loginEmail);
+
+  // console.log(teste);
+
+  login(loginEmail, loginPassword)
+      .then(user => {
+        if (!user) {
+          res.send({error: "error"});
+          return;
+        }
+        req.session.userId = user.id;
+        res.send({user: {name: user.name, email: user.email, id: user.id}});
+      })
+      .catch(e => res.send(e));
+
+
 })
 
 app.get("/newlisting", (req, res) => {
