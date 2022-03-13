@@ -98,8 +98,10 @@ app.post("/register", (req, res) => {
     console.log(error.message);
   })
 
+});
 
-
+app.get("/login", (req, res) => {
+  res.render("login_view");
 });
 
 app.get("/newlisting", (req, res) => {
