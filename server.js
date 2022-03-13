@@ -104,6 +104,11 @@ app.get("/login", (req, res) => {
   res.render("login_view");
 });
 
+app.post("/login", (req, res) => {
+  const loginEmail = req.body.email;
+  const loginPassword = req.body.password;
+})
+
 app.get("/newlisting", (req, res) => {
   console.log("test");
   res.render("newlisting");
