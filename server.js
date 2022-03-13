@@ -161,7 +161,7 @@ app.get("/newlisting", (req, res) => {
 });
 
 app.post("/newlisting", (req,res) => {
-  const valueArray = [1,      //FIRST VALUE WHICH IS SELLER ID, TO BE REPLACED WITH REQ.SESSION
+  const valueArray = [5,      //FIRST VALUE WHICH IS SELLER ID, TO BE REPLACED WITH REQ.SESSION
   req.body.product_name,
   req.body.description,
   req.body.price,
@@ -169,7 +169,10 @@ app.post("/newlisting", (req,res) => {
   req.body.hiddenImgUrl]
 
   createListing(valueArray)
-  .then(res.redirect("/newlisting"))
+  .catch(error => {
+    console.log(error.message)
+  })
+  .then(res.redirect(`/newlisting`))
 })
 
 app.get("/products/:product_id", (req, res) => {
@@ -185,5 +188,10 @@ app.get("/products/:product_id", (req, res) => {
     console.log(product[0].name)
     res.render("product", templateVars)
   })
-
 });
+
+app.get("/cart", (req, res) => {
+
+    res.render("cart")
+})
+
