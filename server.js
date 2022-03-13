@@ -100,7 +100,19 @@ app.post("/register", (req, res) => {
   RETURNING *;
   `, queryUserParams)
   .then(data => {
-    req.session.user_id = data.rows[0].id;
+    req.session.user_id = data.rows[0].id; //cookie
+
+    if (sellerAccount && sellerRouting) {
+      return db.query (`
+      INSERT INTO sellers (user_id, bank_account, routing)
+      VALUES ($1, $2, $3)
+      RETURNING *;
+      `, [data.rows[0].id, sellerAccount, sellerRouting])
+      .then (data => {
+        res.redirect("/");
+      })
+    }
+
     res.redirect("/");
     return data.rows[0];
   })
