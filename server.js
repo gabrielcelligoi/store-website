@@ -70,8 +70,13 @@ app.post("/newlisting", (req,res) => {
 
     console.log(req.body)
 
-
 })
+
+app.get("/products/:product_id", (req, res) => {
+
+  res.render("product")
+
+});
 
 // app.post("/img", (req,res) => {
 //   console.log(req.body)
