@@ -1,7 +1,7 @@
-INSERT INTO products (seller_id, name, description, price, stock, image)
+INSERT INTO products (seller_id, name, description, price, stock, image, is_featured)
 VALUES
-(1, 'Cat Food', 'Provenance Series Hauraki Plains Wet recipe for Cats Named for its gentle winds', 413, 10, 'www.google.com'),
-(2, 'Dog Bike Basket', 'Replace all your other carriers with ChillBug’s all in one portable pet carrier bag.', 8995, 7, 'www.google.com'),
-(3, 'Solid Wood Cat Tree', 'Solid wood hand-made', 39900, 3, 'www.google.com'),
-(4, 'The Gripper Tactical Leash', 'We know that some people just love cotton leashes and in the past, due to their lack of grip they havent been high on our list of must haves.', 3895, 10, 'www.google.com');
+(1, 'BALANCED LIFE Salmon Topper', 'Balanced Life Adult Rehydratable Salmon Dry Dog Food Topper 200g is a complete air dried raw, balanced, single meat protein diet made from Dr Bruce Syme''s combination of natural raw ingredients to mimic a natural prey diet.', 795, 50, 'https://marketplacer.imgix.net/mH/iyRlDMoVuXLb_QPN-FdlFSV-I.jpg?auto=format&fm=pjpg&fit=max&w=1200&h=1200&s=955be770d79a34b61ff0ae39948bf238', true),
+(2, 'OLIVER JACKET - CAMO GOLD', 'Keep the dog, get rid of the smell! All of our textile-based products are coated with SILVERSHIELD™, a patented treatment that helps eliminate odor from pets and good for up to 100 washes.', 5900, 15, 'https://cdn.shopify.com/s/files/1/2222/5817/products/43_1200x1200.png?v=1631741021', true),
+(3, 'Rogz Cuddle Oval Pod Green Small', 'Perfect for comfort-loving cats who love to sleep curled up in a ball! The classic styling of the Cuddle Oval Pod bed with soft Plush interior offers a safe and supportive quiet bed to call their own.', 2900, 20, 'https://marketplacer.imgix.net/qV/xooBBpny4SQG-HZ-xlDXv8Fzk.jpg?auto=format&fm=pjpg&fit=max&w=550&h=550&s=9d1ea9c3cd5a4d68f519ed086a03ec90', true),
+(4, 'Furrytail Boss Cat Bed, Elevated Cat Chair', 'Let your pet cat feel like a boss when they relax and lounge around the Boss Cat Bed. A day bed that will give your pets comfort every time they want to chill during that quiet cold evening or breezy afternoon.', 8990, 10, 'https://marketplacer.imgix.net/Py/BZWViaRpp5oqKzmhejboZjFEo.jpg?auto=format&fm=pjpg&fit=max&w=1165&h=1500&s=219ff424aceb85045234ed3590847fde', true);
 

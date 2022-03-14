@@ -161,7 +161,7 @@ app.get("/newlisting", (req, res) => {
 });
 
 app.post("/newlisting", (req,res) => {
-  const valueArray = [1,      //FIRST VALUE WHICH IS SELLER ID, TO BE REPLACED WITH REQ.SESSION
+  const valueArray = [9,      //FIRST VALUE WHICH IS SELLER ID, TO BE REPLACED WITH REQ.SESSION
   req.body.product_name,
   req.body.description,
   req.body.price,
