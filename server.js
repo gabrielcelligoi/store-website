@@ -231,18 +231,5 @@ app.get("/products", (req, res) => {
   res.render("browse")
 })
 
-const getProducts = function(input) {
-  const cartProducts = {}
-  for (let item of input) {
 
-  getProduct(item).then((product) => {
-   return cartProducts[item] = product
 
-  })
-  .then((data) => {
-    return data
-    })
-}
-};
-
-getProducts(cart)
