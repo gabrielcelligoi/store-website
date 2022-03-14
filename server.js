@@ -183,7 +183,8 @@ app.get("/products/:product_id", (req, res) => {
       price: product[0].price / 100,
       stock: product[0].stock,
       description: product[0].description,
-      image: product[0].image
+      image: product[0].image,
+      product_id: req.params.product_id
     }
     console.log(product[0].name)
     res.render("product", templateVars)
@@ -195,7 +196,9 @@ app.get("/cart", (req, res) => {
 })
 
 app.post('/products/:product_id', (req, res) => {
-  //need to post req.params.product_id
+
+//need to make an object to hold cart products
+
 })
 
 app.get("/products", (req, res) => {
