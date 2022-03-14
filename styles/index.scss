@@ -1,0 +1,84 @@
+* {
+  margin: 0;
+  height: 100%;
+}
+
+header {
+  width: 100%;
+  height: auto;
+  position: fixed;
+}
+
+// body {
+//   width: 100%;
+//   background-color: #dedede;
+// }
+
+.img-container {
+  background-image: url(../images/dog-and-cad-grass.jpg);
+  height: 70%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  margin-top: 100px;
+}
+
+.inner-img-container {
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  color: #dedede;
+  height: auto;
+  margin-top: 200px;
+}
+
+.product {
+  margin: 25px;
+  height: 450px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.product:hover {
+  box-shadow: -10px -10px 25px 10px white, 5px 5px 25px 10px #555;
+}
+
+#products-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.image {
+  height: 400px;
+  width: 300px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.product-name {
+ margin-left: 8px;
+}
+
+.product-price {
+  margin-left: 8px;
+}
+
+.break-bar {
+  border-style: double hidden double hidden;
+  border-color: #005F40;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 75px;
+  margin: 25px;
+  padding-top: 5px;
+}
+
+.inner-break-bar-text {
+  height: 35px;
+}

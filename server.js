@@ -9,7 +9,8 @@ const app = express();
 const morgan = require("morgan");
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
-const { getUserWithEmail, getProduct, createListing, getProductById } = require("./database");
+const { getUserWithEmail, getProduct, createListing, featuredProductsList } = require("./database");
+
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -69,7 +70,15 @@ const cart = ["3","2"]
 
 
 app.get("/", (req, res) => {
-  res.render("index");
+  featuredProductsList()
+  .then(products => {
+    const templateVars = {
+      products: products
+    }
+    console.log(products)
+    res.render("index", templateVars)
+  })
+
 });
 
 app.listen(PORT, () => {

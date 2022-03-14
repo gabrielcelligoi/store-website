@@ -5,22 +5,6 @@ const db = new Pool(dbParams);
 db.connect();
 
 
-// const insertNewUser = function(arrayWithUserValues, cookieName) {
-//   return db.query(`
-//   INSERT INTO users (name, email, password, country, street, city, province, postal)
-//   VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-//   RETURNING *;
-//   `, arrayWithUserValues)
-//   .then(data => {
-//     cookieName = data.rows[0].id;
-//     res.redirect("/");
-//     return data.rows[0];
-//   })
-//   .catch(error => {
-//     console.log(error.message);
-//   })
-// }
-
 const getUserWithEmail = function(email) {
   return db.query(`
   SELECT *
@@ -62,9 +46,19 @@ const createListing = function(values) {
   })
 }
 
+const featuredProductsList = function() {
+  return db.query(`
+  SELECT *
+  FROM products
+  WHERE is_featured = true AND id = 1 OR id = 2 OR id = 3;
+  `)
+  .then(products => {
+    console.log(products.rows)
+    return products.rows;
+  })
+}
 
 
 
 
-
-module.exports = { getUserWithEmail, getProduct, createListing};
+module.exports = { getUserWithEmail, getProduct, createListing, featuredProductsList };

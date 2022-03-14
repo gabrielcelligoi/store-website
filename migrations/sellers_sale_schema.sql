@@ -18,7 +18,7 @@ CREATE TABLE users (
 
 CREATE TABLE cards (
   id SERIAL PRIMARY KEY NOT NULL,
-  user_id INTEGER REFERENCES users(id) NOT NULL,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   brand VARCHAR(255) NOT NULL,
   number BIGINT NOT NULL,
   exp_date VARCHAR(255) NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE cards (
 
 CREATE TABLE sellers (
   id SERIAL PRIMARY KEY NOT NULL,
-  user_id INTEGER REFERENCES users(id) NOT NULL,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   bank_account INTEGER NOT NULL,
   routing INTEGER NOT NULL
 );
@@ -41,14 +41,15 @@ CREATE TABLE products (
   stock INTEGER NOT NULL DEFAULT 0,
   image TEXT NOT NULL,
   rating INTEGER,
-  weight INTEGER
+  weight INTEGER,
+  is_featured BOOLEAN DEFAULT false
 );
 
 
 CREATE TABLE sale (
   id SERIAL PRIMARY KEY NOT NULL,
-  user_id INTEGER REFERENCES users(id) NOT NULL,
-  product_id INTEGER REFERENCES products(id) NOT NULL,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  product_id INTEGER REFERENCES products(id) ON DELETE CASCADE,
   shipping_cost INTEGER DEFAULT 10,
   country VARCHAR(255) NOT NULL,
   street VARCHAR(255) NOT NULL,

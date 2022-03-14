@@ -33,3 +33,32 @@ body {
 #seller {
   display: none;
 }
+
+.img-container {
+  // background-image: url(../images/dog-and-cad-grass.jpg);
+  background-color: red;
+  height: 70%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.inner-img-container {
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  color: white;
+  height: auto;
+  margin-top: 200px;
+}
+
+#test {
+  background-image: url(../images/dog-and-cad-grass.jpg);
+  height: 500px;
+  width: 500px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
