@@ -18,7 +18,7 @@
       <br>
       <div class="product-description"><%= description %></div>
       <br>
-      <form action="/addcart" method="POST" id="add-cart-btn">
+      <form action="/products/<%=product_id%>" method="POST" id="add-cart-btn">
         <label for="add-cart-btn" id="add-cart-btn" name="add-cart-btn"></label>
         <button type="submit">Add To Cart</button>
       </form>

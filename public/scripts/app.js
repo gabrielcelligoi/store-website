@@ -12,12 +12,13 @@ $(() => {
     document.getElementById("hiddenImgUrl").value = url
 
     $.ajax({
-      type: "GET",
-      url: "/img",
+      type: "POST",
+      url: "/newlisting",
       data: url,
       success: loadImg(url)
     })
   })
+
 
 
   const loadImg = function(url) {
@@ -26,6 +27,7 @@ $(() => {
     $("#imageContainer").append($img)
   }
 
+<<<<<<< HEAD
   $("#product1").click(function() {
     window.location.href = "/products/1"
   })
@@ -37,6 +39,9 @@ $(() => {
   $("#product3").click(function() {
     window.location.href = "/products/3"
   })
+=======
+>>>>>>> 320709ba5d5e06665fbb181c1e976e4a73334868
 
 
 })
+

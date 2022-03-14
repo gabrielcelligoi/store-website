@@ -66,6 +66,9 @@ app.use("/api/widgets", widgetsRoutes(db));
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
+const cart = ["3","2"]
+
+
 app.get("/", (req, res) => {
   featuredProductsList()
   .then(products => {
@@ -110,6 +113,7 @@ app.post("/register", (req, res) => {
   `, queryUserParams)
   .then(data => {
     req.session.user_id = data.rows[0].id; //cookie
+    console.log(req.session.user_id)
 
     if (sellerAccount && sellerRouting) {
       return db.query (`
@@ -118,6 +122,9 @@ app.post("/register", (req, res) => {
       RETURNING *;
       `, [data.rows[0].id, sellerAccount, sellerRouting])
       .then (data => {
+        console.log(data.rows[0])
+        req.session.seller_id = data.rows[0].id
+        console.log(req.session)
         res.redirect("/");
       })
     }
@@ -169,7 +176,7 @@ app.get("/newlisting", (req, res) => {
 });
 
 app.post("/newlisting", (req,res) => {
-  const valueArray = [9,      //FIRST VALUE WHICH IS SELLER ID, TO BE REPLACED WITH REQ.SESSION
+  const valueArray = [req.session.seller_id,      //FIRST VALUE WHICH IS SELLER ID, TO BE REPLACED WITH REQ.SESSION
   req.body.product_name,
   req.body.description,
   req.body.price,
@@ -177,7 +184,10 @@ app.post("/newlisting", (req,res) => {
   req.body.hiddenImgUrl]
 
   createListing(valueArray)
-  .then(res.redirect("/newlisting"))
+  .catch(error => {
+    console.log(error.message)
+  })
+  .then(res.redirect(`/newlisting`))
 })
 
 app.get("/products/:product_id", (req, res) => {
@@ -188,10 +198,60 @@ app.get("/products/:product_id", (req, res) => {
       price: product[0].price / 100,
       stock: product[0].stock,
       description: product[0].description,
-      image: product[0].image
+      image: product[0].image,
+      product_id: req.params.product_id
     }
     console.log(product[0].name)
     res.render("product", templateVars)
   })
-
 });
+
+app.get("/cart", (req, res) => {
+
+  console.log(getProducts(cart))
+
+  const templateVars = {
+
+  }
+    res.render("cart", templateVars)
+})
+
+
+app.post('/products/:product_id', (req, res) => {
+
+  const populateCart = function() {
+    const user = req.session.user_id
+      if (user) {
+        cart.push(req.params.product_id)
+        return
+      } else {
+        return res.send("Please login to add Items to cart")
+      }
+    }
+  populateCart()
+  res.redirect(`/products/${req.params.product_id}`)
+})
+
+app.get("/cart.json", (req, res) => {
+  res.json(cart)
+})
+
+app.get("/products", (req, res) => {
+  res.render("browse")
+})
+
+const getProducts = function(input) {
+  const cartProducts = {}
+  for (let item of input) {
+
+  getProduct(item).then((product) => {
+   return cartProducts[item] = product
+
+  })
+  .then((data) => {
+    return data
+    })
+}
+};
+
+getProducts(cart)

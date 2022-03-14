@@ -62,3 +62,5 @@ const featuredProductsList = function() {
 
 
 module.exports = { getUserWithEmail, getProduct, createListing, featuredProductsList };
+
+
