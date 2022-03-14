@@ -73,7 +73,8 @@ app.get("/", (req, res) => {
   featuredProductsList()
   .then(products => {
     const templateVars = {
-      products: products
+      products: products,
+      user: req.session.user_id
     }
     console.log(products)
     res.render("index", templateVars)
@@ -86,7 +87,10 @@ app.listen(PORT, () => {
 });
 
 app.get("/register", (req, res) => {
-  res.render("register_view");
+  const templateVars = {
+    user: req.session.user_id
+  }
+  res.render("register_view", templateVars);
 });
 
 app.post("/register", (req, res) => {
@@ -140,7 +144,10 @@ app.post("/register", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-  res.render("login_view");
+  const templateVars = {
+    user: req.session.user_id
+  }
+  res.render("login_view", templateVars);
 });
 
 app.post("/login", (req, res) => {
@@ -172,7 +179,11 @@ app.post("/login", (req, res) => {
 })
 
 app.get("/newlisting", (req, res) => {
-  res.render("newlisting");
+  const templateVars = {
+    user: req.session.user_id
+  }
+
+  res.render("newlisting", templateVars);
 });
 
 app.post("/newlisting", (req,res) => {
@@ -238,4 +249,8 @@ app.get("/products", (req, res) => {
 })
 
 
+app.get("/logout", (req, res) => {
 
+  req.session = null
+  res.redirect("/")
+})
