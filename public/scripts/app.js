@@ -12,8 +12,8 @@ $(() => {
     document.getElementById("hiddenImgUrl").value = url
 
     $.ajax({
-      type: "GET",
-      url: "/img",
+      type: "POST",
+      url: "/newlisting",
       data: url,
       success: loadImg(url)
     })

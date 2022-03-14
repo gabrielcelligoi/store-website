@@ -199,6 +199,9 @@ app.get("/cart", (req, res) => {
     res.render("cart")
 })
 
+
+const cart = {}
+
 app.post('/products/:product_id', (req, res) => {
 
 //need to make an object to hold cart products
