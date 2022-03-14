@@ -191,11 +191,13 @@ app.get("/products/:product_id", (req, res) => {
 });
 
 app.get("/cart", (req, res) => {
-
     res.render("cart")
 })
 
-app.get("/products", (req, res) => {
+app.post('/products/:product_id', (req, res) => {
+  //need to post req.params.product_id
+})
 
+app.get("/products", (req, res) => {
   res.render("browse")
 })
