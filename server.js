@@ -102,6 +102,7 @@ app.post("/register", (req, res) => {
   `, queryUserParams)
   .then(data => {
     req.session.user_id = data.rows[0].id; //cookie
+    console.log(req.session.user_id)
 
     if (sellerAccount && sellerRouting) {
       return db.query (`
@@ -110,6 +111,9 @@ app.post("/register", (req, res) => {
       RETURNING *;
       `, [data.rows[0].id, sellerAccount, sellerRouting])
       .then (data => {
+        console.log(data.rows[0])
+        req.session.seller_id = data.rows[0].id
+        console.log(req.session)
         res.redirect("/");
       })
     }
@@ -161,7 +165,7 @@ app.get("/newlisting", (req, res) => {
 });
 
 app.post("/newlisting", (req,res) => {
-  const valueArray = [5,      //FIRST VALUE WHICH IS SELLER ID, TO BE REPLACED WITH REQ.SESSION
+  const valueArray = [req.session.seller_id,      //FIRST VALUE WHICH IS SELLER ID, TO BE REPLACED WITH REQ.SESSION
   req.body.product_name,
   req.body.description,
   req.body.price,
