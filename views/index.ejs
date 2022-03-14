@@ -38,6 +38,10 @@
     </div>
   </div>
 
+  <div class="break-bar">
+    <h3 class="inner-break-bar-text">Featured</h3>
+  </div>
+
   <div id="products-container">
 
     <% products.forEach(function(product) { %>
@@ -49,7 +53,7 @@
           <h5><%=product.name%></h5>
         </section>
         <section class="product-price">
-          <p><%=product.price / 100%></p>
+          <p>$<%=product.price / 100%></p>
         </section>
       </article>
     <% }); %>
