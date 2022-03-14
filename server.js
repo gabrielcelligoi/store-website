@@ -205,6 +205,7 @@ app.get("/products/:product_id", (req, res) => {
   getProduct(req.params.product_id)
   .then(product => {
     const templateVars = {
+      user: req.session.user_id,
       name: product[0].name,
       price: product[0].price / 100,
       stock: product[0].stock,
@@ -232,6 +233,7 @@ app.post('/products/:product_id', (req, res) => {
 app.get("/cart", (req, res) => {
 
   const templateVars = {
+    user: req.session.user_id,
     cartItem: cart,
     total: 0
   }
@@ -245,7 +247,10 @@ app.get("/cart.json", (req, res) => {
 })
 
 app.get("/products", (req, res) => {
-  res.render("browse")
+  const templateVars = {
+    user: req.session.user_id
+  }
+  res.render("browse", templateVars)
 })
 
 
