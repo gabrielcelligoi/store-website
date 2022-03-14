@@ -66,7 +66,7 @@ app.use("/api/widgets", widgetsRoutes(db));
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
-const cart = ["3","2"]
+const cart = {}
 
 
 app.get("/", (req, res) => {
@@ -206,31 +206,28 @@ app.get("/products/:product_id", (req, res) => {
   })
 });
 
+app.post('/products/:product_id', (req, res) => {
+
+  getProduct(req.params.product_id)
+  .then(data => {
+    cart[Object.keys(cart).length + 1] = data[0]
+    console.log(cart)
+  })
+
+
+  res.redirect(`/products/${req.params.product_id}`)
+})
+
 app.get("/cart", (req, res) => {
 
-  console.log(getProducts(cart))
-
   const templateVars = {
-
+    cartItem: cart,
+    total: 0
   }
     res.render("cart", templateVars)
 })
 
 
-app.post('/products/:product_id', (req, res) => {
-
-  const populateCart = function() {
-    const user = req.session.user_id
-      if (user) {
-        cart.push(req.params.product_id)
-        return
-      } else {
-        return res.send("Please login to add Items to cart")
-      }
-    }
-  populateCart()
-  res.redirect(`/products/${req.params.product_id}`)
-})
 
 app.get("/cart.json", (req, res) => {
   res.json(cart)

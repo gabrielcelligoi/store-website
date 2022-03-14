@@ -27,8 +27,6 @@ $(() => {
     $("#imageContainer").append($img)
   }
 
-<<<<<<< HEAD
-=======
   $("#product1").click(function() {
     window.location.href = "/products/1"
   })
@@ -40,7 +38,6 @@ $(() => {
   $("#product3").click(function() {
     window.location.href = "/products/3"
   })
->>>>>>> c01b0992dc401e57639e8c53ed636fe11b495cb2
 
 
 })
