@@ -66,14 +66,15 @@ app.use("/api/widgets", widgetsRoutes(db));
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
-const cart = ["3","2"]
+const cart = {}
 
 
 app.get("/", (req, res) => {
   featuredProductsList()
   .then(products => {
     const templateVars = {
-      products: products
+      products: products,
+      user: req.session.user_id
     }
     console.log(products)
     res.render("index", templateVars)
@@ -86,7 +87,10 @@ app.listen(PORT, () => {
 });
 
 app.get("/register", (req, res) => {
-  res.render("register_view");
+  const templateVars = {
+    user: req.session.user_id
+  }
+  res.render("register_view", templateVars);
 });
 
 app.post("/register", (req, res) => {
@@ -140,7 +144,10 @@ app.post("/register", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-  res.render("login_view");
+  const templateVars = {
+    user: req.session.user_id
+  }
+  res.render("login_view", templateVars);
 });
 
 app.post("/login", (req, res) => {
@@ -172,7 +179,11 @@ app.post("/login", (req, res) => {
 })
 
 app.get("/newlisting", (req, res) => {
-  res.render("newlisting");
+  const templateVars = {
+    user: req.session.user_id
+  }
+
+  res.render("newlisting", templateVars);
 });
 
 app.post("/newlisting", (req,res) => {
@@ -194,6 +205,7 @@ app.get("/products/:product_id", (req, res) => {
   getProduct(req.params.product_id)
   .then(product => {
     const templateVars = {
+      user: req.session.user_id,
       name: product[0].name,
       price: product[0].price / 100,
       stock: product[0].stock,
@@ -206,52 +218,44 @@ app.get("/products/:product_id", (req, res) => {
   })
 });
 
+app.post('/products/:product_id', (req, res) => {
+
+  getProduct(req.params.product_id)
+  .then(data => {
+    cart[Object.keys(cart).length + 1] = data[0]
+    console.log(cart)
+  })
+
+
+  res.redirect(`/products/${req.params.product_id}`)
+})
+
 app.get("/cart", (req, res) => {
 
-  console.log(getProducts(cart))
-
   const templateVars = {
-
+    user: req.session.user_id,
+    cartItem: cart,
+    total: 0
   }
     res.render("cart", templateVars)
 })
 
 
-app.post('/products/:product_id', (req, res) => {
-
-  const populateCart = function() {
-    const user = req.session.user_id
-      if (user) {
-        cart.push(req.params.product_id)
-        return
-      } else {
-        return res.send("Please login to add Items to cart")
-      }
-    }
-  populateCart()
-  res.redirect(`/products/${req.params.product_id}`)
-})
 
 app.get("/cart.json", (req, res) => {
   res.json(cart)
 })
 
 app.get("/products", (req, res) => {
-  res.render("browse")
+  const templateVars = {
+    user: req.session.user_id
+  }
+  res.render("browse", templateVars)
 })
 
-const getProducts = function(input) {
-  const cartProducts = {}
-  for (let item of input) {
 
-  getProduct(item).then((product) => {
-   return cartProducts[item] = product
+app.get("/logout", (req, res) => {
 
-  })
-  .then((data) => {
-    return data
-    })
-}
-};
-
-getProducts(cart)
+  req.session = null
+  res.redirect("/")
+})

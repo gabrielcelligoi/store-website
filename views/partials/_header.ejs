@@ -39,10 +39,18 @@
     </div>
     <div class="search-with-login">
       <div id="login-register">
+        <% if (user) { %>
+          <span class="welcome">WELCOME BACK</span>
+          <form id="logout" action="/logout" method="GET">
+            <button type="submit">LOGOUT</button>
+          </form>
+          <br>
+          <% } else { %>
         <a href="/login">Login</a>
         <a href="/register"> Register</a>
         <a class="icon" href="/cart"><i class="fa-solid fa-cart-shopping"></i></a>
       </div>
+        <% } %>
       <form id="search-bar" action="/search" method="GET">
         <input type="text" placeholder="Search Products" name="search">
         <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -52,6 +60,10 @@
   <div class="menu" style="display:none;">
     <span><a href="/products">Browse</a></span>
     <span><a href="/newlisting">Create Listing</a></span>
-    <span><a href="#">test3</a></span>
+    <span><a href="/messages">messages</a></span>
   </div>
 </header>
+
+<body>
+
+</body>

@@ -41,7 +41,7 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  position: relative;
+  margin: 0;
 }
 
 .inner-img-container {
@@ -50,7 +50,6 @@ body {
   width: 100%;
   color: white;
   height: auto;
-  margin-top: 200px;
 }
 
 #test {

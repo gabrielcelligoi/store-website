@@ -1,3 +1,6 @@
+header {
+  position: inherit;
+}
 .navbar {
   border-color: black;
   border-style: solid;
@@ -73,3 +76,14 @@ a {
   }
 }
 
+.welcome {
+  color:black;
+}
+
+#logout {
+  font-size: small;
+}
+#logout button{
+  background-color: rgb(243, 129, 129);
+
+}

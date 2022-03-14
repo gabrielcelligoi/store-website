@@ -1,9 +1,6 @@
 
 // Client facing scripts here
 $(() => {
-  $(".dropbtn").click(function() {        //dropdown menu on header
-    $(".menu").slideToggle();
-  })
 
 
   $("#load-img").submit(function(event) {
@@ -19,6 +16,10 @@ $(() => {
     })
   })
 
+  $(".dropbtn").click(function() {        //dropdown menu on header
+    $(".menu").slideToggle();
+  })
+
 
 
   const loadImg = function(url) {
@@ -27,7 +28,7 @@ $(() => {
     $("#imageContainer").append($img)
   }
 
-<<<<<<< HEAD
+
   $("#product1").click(function() {
     window.location.href = "/products/1"
   })
@@ -39,8 +40,6 @@ $(() => {
   $("#product3").click(function() {
     window.location.href = "/products/3"
   })
-=======
->>>>>>> 320709ba5d5e06665fbb181c1e976e4a73334868
 
 
 })
