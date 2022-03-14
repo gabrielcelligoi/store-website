@@ -9,8 +9,7 @@ const app = express();
 const morgan = require("morgan");
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
-const { getUserWithEmail, getProduct, createListing } = require("./database");
-
+const { getUserWithEmail, getProduct, createListing, getProductById } = require("./database");
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -65,6 +64,9 @@ app.use("/api/widgets", widgetsRoutes(db));
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
+
+const cart = ["3","2"]
+
 
 app.get("/", (req, res) => {
   res.render("index");
@@ -196,23 +198,51 @@ app.get("/products/:product_id", (req, res) => {
 });
 
 app.get("/cart", (req, res) => {
-    res.render("cart")
+
+  console.log(getProducts(cart))
+
+  const templateVars = {
+
+  }
+    res.render("cart", templateVars)
 })
 
 
-const cart = []
-
 app.post('/products/:product_id', (req, res) => {
-  const user = req.session.user_id
-  if (user) {
-    cart.push(req.params.product_id)
-    return res.redirect(`/products/${req.params.product_id}`)
-  } else {
-    return res.send("Please login to add Items to cart")
-  }
 
+  const populateCart = function() {
+    const user = req.session.user_id
+      if (user) {
+        cart.push(req.params.product_id)
+        return
+      } else {
+        return res.send("Please login to add Items to cart")
+      }
+    }
+  populateCart()
+  res.redirect(`/products/${req.params.product_id}`)
+})
+
+app.get("/cart.json", (req, res) => {
+  res.json(cart)
 })
 
 app.get("/products", (req, res) => {
   res.render("browse")
 })
+
+const getProducts = function(input) {
+  const cartProducts = {}
+  for (let item of input) {
+
+  getProduct(item).then((product) => {
+   return cartProducts[item] = product
+
+  })
+  .then((data) => {
+    return data
+    })
+}
+};
+
+getProducts(cart)

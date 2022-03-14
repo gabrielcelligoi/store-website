@@ -62,4 +62,9 @@ const createListing = function(values) {
   })
 }
 
-module.exports = { getUserWithEmail, getProduct, createListing };
+
+
+
+
+
+module.exports = { getUserWithEmail, getProduct, createListing};

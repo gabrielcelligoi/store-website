@@ -20,9 +20,14 @@ $(() => {
   })
 
 
+
   const loadImg = function(url) {
     $("#imageContainer").empty()
     const $img = $(`<img id="loaded" src=${url}>`)
     $("#imageContainer").append($img)
   }
+
+
+
 })
+
