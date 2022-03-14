@@ -9,7 +9,7 @@ const app = express();
 const morgan = require("morgan");
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
-const { getUserWithEmail, getProduct, createListing } = require("./database");
+const { getUserWithEmail, getProduct, createListing, featuredProductsList } = require("./database");
 
 
 // PG database client/connection setup
@@ -67,7 +67,15 @@ app.use("/api/widgets", widgetsRoutes(db));
 // Separate them into separate routes files (see above).
 
 app.get("/", (req, res) => {
-  res.render("index");
+  featuredProductsList()
+  .then(products => {
+    const templateVars = {
+      products: products
+    }
+    console.log(products)
+    res.render("index", templateVars)
+  })
+
 });
 
 app.listen(PORT, () => {

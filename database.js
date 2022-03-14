@@ -66,12 +66,15 @@ const featuredProductsList = function() {
   return db.query(`
   SELECT *
   FROM products
-  WHERE is_featured = true;
+  WHERE is_featured = true AND id = 1 OR id = 2 OR id = 3;
   `)
   .then(products => {
     console.log(products.rows)
     return products.rows;
   })
 }
+
+
+
 
 module.exports = { getUserWithEmail, getProduct, createListing, featuredProductsList };

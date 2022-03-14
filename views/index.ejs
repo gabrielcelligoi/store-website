@@ -40,7 +40,25 @@
 
   <div id="products-container">
 
-    <article class="product" id="product1">
+    <% products.forEach(function(product) { %>
+      <article class="product" id="product<%= product.id%>">
+        <section class="product-img">
+          <img class="image" src=<%= product.image %> >
+        </section>
+        <section class="product-name">
+          <h5><%=product.name%></h5>
+        </section>
+        <section class="product-price">
+          <p><%=product.price / 100%></p>
+        </section>
+      </article>
+    <% }); %>
+
+
+
+
+
+    <!-- <article class="product" id="product1">
       <section class="product-img">
         <img class="image" src="https://marketplacer.imgix.net/mH/iyRlDMoVuXLb_QPN-FdlFSV-I.jpg?auto=format&fm=pjpg&fit=max&w=1200&h=1200&s=955be770d79a34b61ff0ae39948bf238" alt="product">
       </section>
@@ -74,7 +92,7 @@
       <section class="product-price">
         <p>29.00</p>
       </section>
-    </article>
+    </article> -->
 
 
   </div>
