@@ -200,11 +200,16 @@ app.get("/cart", (req, res) => {
 })
 
 
-const cart = {}
+const cart = []
 
 app.post('/products/:product_id', (req, res) => {
-
-//need to make an object to hold cart products
+  const user = req.session.user_id
+  if (user) {
+    cart.push(req.params.product_id)
+    return res.redirect(`/products/${req.params.product_id}`)
+  } else {
+    return res.send("Please login to add Items to cart")
+  }
 
 })
 
