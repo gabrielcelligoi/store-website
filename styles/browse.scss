@@ -1,0 +1,38 @@
+#browse-main-container {
+  display: flex;
+  border-style: solid;
+  padding: 2em;
+  width: 100%;
+
+  #filter-container {
+    width:20%;
+  }
+
+  #items-container {
+    width:80%;
+    text-align: center;
+
+    .column {
+      float:left;
+      width: 33%;
+      padding: 10px;
+    }
+  }
+}
+
+.product-container {
+  display: block;
+  border: .2em;
+  border-style: solid;
+  width: 13em;
+  height: 13em;
+  background-color: #badfbb;
+  overflow: hidden;
+
+}
+
+.product-container img {
+  max-width: 100%;
+  max-height:65%;
+  object-fit: cover;
+}

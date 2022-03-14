@@ -195,3 +195,7 @@ app.get("/cart", (req, res) => {
     res.render("cart")
 })
 
+app.get("/products", (req, res) => {
+
+  res.render("browse")
+})
