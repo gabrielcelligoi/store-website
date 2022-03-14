@@ -39,6 +39,10 @@ header {
   width: 300px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+}
+
+.product:hover {
   box-shadow: -10px -10px 25px 10px white, 5px 5px 25px 10px #555;
 }
 
@@ -53,4 +57,12 @@ header {
   width: 300px;
   object-fit: cover;
   object-position: center;
+}
+
+.product-name {
+ margin-left: 8px;
+}
+
+.product-price {
+  margin-left: 8px;
 }

@@ -62,4 +62,16 @@ const createListing = function(values) {
   })
 }
 
-module.exports = { getUserWithEmail, getProduct, createListing };
+const featuredProductsList = function() {
+  return db.query(`
+  SELECT *
+  FROM products
+  WHERE is_featured = true;
+  `)
+  .then(products => {
+    console.log(products.rows)
+    return products.rows;
+  })
+}
+
+module.exports = { getUserWithEmail, getProduct, createListing, featuredProductsList };

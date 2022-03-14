@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "local": "./node_modules/.bin/nodemon -L --ignore public/",
-    "db:reset": "node bin/resetdb.js"
+    "db:reset": "node bin/resetdb.js",
+    "build": "browserify ./public/scripts/app.js -o ./public/scripts/bundle.js"
   },
   "author": "Lighthouse Labs",
   "license": "ISC",
@@ -24,6 +25,7 @@
     "sass": "^1.35.1"
   },
   "devDependencies": {
+    "browserify": "^17.0.0",
     "nodemon": "^2.0.10"
   }
 }

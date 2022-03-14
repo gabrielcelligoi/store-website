@@ -25,4 +25,18 @@ $(() => {
     const $img = $(`<img id="loaded" src=${url}>`)
     $("#imageContainer").append($img)
   }
+
+  $("#product1").click(function() {
+    window.location.href = "/products/1"
+  })
+
+  $("#product2").click(function() {
+    window.location.href = "/products/2"
+  })
+
+  $("#product3").click(function() {
+    window.location.href = "/products/3"
+  })
+
+
 })
