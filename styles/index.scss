@@ -51,6 +51,7 @@ header {
   flex-direction: row;
   justify-content: space-around;
   height: 600px;
+  align-items: center;
 }
 
 .image {
@@ -65,6 +66,7 @@ header {
 }
 
 .product-price {
+  margin-top: -5px;
   margin-left: 8px;
 }
 
