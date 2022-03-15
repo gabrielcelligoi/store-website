@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="/styles/product.css" type="text/css" />
   <link rel="stylesheet" href="/styles/cart.css" type="text/css" />
   <link rel="stylesheet" href="/styles/browse.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/favorites.css" type="text/css" />
   <!-- SCRIPTS -->
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src="/scripts/app.js"></script>
@@ -40,7 +41,7 @@
     <div class="search-with-login">
       <div id="login-register">
         <% if (user) { %>
-          <span class="welcome">WELCOME BACK</span>
+          <span class="welcome">WELCOME BACK </span>
           <form id="logout" action="/logout" method="GET">
             <button type="submit">LOGOUT</button>
           </form>
