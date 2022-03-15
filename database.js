@@ -130,10 +130,13 @@ const getProductsByName = function(str) {
   return db.query(`
   SELECT *
   FROM products
-  WHERE name LIKE %$1%;
+  WHERE name LIKE '%'||$1||'%';
   `, [str])
   .then(products => {
     return products.rows
+  })
+  .catch(error => {
+    console.log(error.message)
   })
 }
 

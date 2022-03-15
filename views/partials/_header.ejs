@@ -58,7 +58,8 @@
         <a class="icon" href="/cart"><i class="fa-solid fa-cart-shopping"></i></a>
       </div>
         <% } %>
-      <form id="search-bar" action="/search" method="GET">
+      <form id="search-bar" action="/search" method="POST">
+        <label for="search" id="search" name="search"></label>
         <input type="text" class="form-control" placeholder="Search Products" name="search">
         <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
       </form>

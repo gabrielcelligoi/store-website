@@ -390,3 +390,25 @@ app.post("/favorites/:product_id/remove", (req, res) => {
   }
   res.redirect("/favorites")
 })
+
+app.post("/search", (req,res) => {
+  console.log("test", req.body.search)
+  getUserById(req.session.user_id)
+  .then(userData => {
+    return userData
+  })
+  .then(userData => {
+    getProductsByName(req.body.search)
+    .then(data => {
+      const templateVars = {
+        user: userData,
+        seller: req.session.seller_id,
+        product: data
+      }
+      console.log(templateVars['product'])
+      res.render("browse", templateVars);
+
+    })
+  })
+
+})
