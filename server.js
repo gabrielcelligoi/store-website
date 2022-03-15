@@ -9,7 +9,7 @@ const app = express();
 const morgan = require("morgan");
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
-const { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId } = require("./database");
+const { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId, deleteProductByySellerId } = require("./database");
 
 
 // PG database client/connection setup
@@ -345,11 +345,15 @@ app.get("/sellerlistings", (req,res) => {
         seller: req.session.seller_id,
         user:userData
       }
-      console.log(templateVars.products)
       res.render("sellerlistings", templateVars)
 
+    })
   })
+})
+
+app.post("/sellerlistings/:product_id", (req,res) => {
+  deleteProductByySellerId(req.session.seller_id, req.params.product_id)
+  .then(data => {
+    res.redirect("/sellerlistings")
   })
-
-
 })

@@ -30,8 +30,11 @@
               <td>$<%= product.price%></td>
               <td><form class="add" method="GET" action="/products/<%=product.id%>">
                 <button type="submit">Visit</button>
+                </form>
+              </td>
+              <td><form class="delete" method="POST" action="/sellerlistings/<%=product.id%>">
+                <button type="submit">DELETE</button>
               </form></td>
-
             </tr>
               <% } %>
               </tbody>

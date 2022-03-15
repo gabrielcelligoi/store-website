@@ -83,7 +83,17 @@ const getProductsBySellerId = function(id) {
   })
 }
 
+const deleteProductByySellerId = function(seller_id, product_id) {
+  return db.query(`
+  DELETE
+  FROM products
+  WHERE seller_id = $1 AND id = $2;
+  `, [seller_id, product_id])
+  .then(products => {
+    return products.rows
+  })
+}
 
 
 
-module.exports = { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId };
+module.exports = { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId, deleteProductByySellerId };
