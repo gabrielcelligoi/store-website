@@ -126,4 +126,49 @@ const getAllProducts = function() {
   })
 }
 
-module.exports = { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId, deleteProductBySellerId, updateToSoldByProductId, updateToNotSoldByProductId, getAllProducts };
+const getProductsByName = function(str) {
+  return db.query(`
+  SELECT *
+  FROM products
+  WHERE name LIKE %$1%;
+  `, [str])
+  .then(products => {
+    return products.rows
+  })
+}
+
+const getProductsByMinPrice = function(min) {
+  return db.query(`
+  SELECT *
+  FROM products
+  WHERE price > $1
+  `, [min])
+  .then(products => {
+    return products.rows
+  })
+}
+
+const getProductsByMaxPrice = function(max) {
+  return db.query(`
+  SELECT *
+  FROM products
+  WHERE price < $1
+  `, [max])
+  .then(products => {
+    return products.rows
+  })
+}
+
+const getProductsBetweenPrice = function(min,max) {
+  return db.query(`
+  SELECT *
+  FROM products
+  WHERE price BETWEEN $1 AND $2
+  `, [min, max])
+  .then(products => {
+    return products.rows
+  })
+}
+
+
+module.exports = { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId, deleteProductBySellerId, updateToSoldByProductId, updateToNotSoldByProductId, getAllProducts, getProductsByName, getProductsByMinPrice, getProductsByMaxPrice, getProductsBetweenPrice };
