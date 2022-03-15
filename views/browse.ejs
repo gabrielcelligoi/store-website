@@ -8,8 +8,16 @@
 <body>
   <div id="browse-main-container">
     <div id="filter-container">
-      FILTER CHECKBOX COLUMN
-
+      <h3>Price Filters</h3>
+      <form method="POST" action="/filter">
+        <label for="min" name="min">Min</label>
+        <input type="text" name="min">
+        <label for="max" name="max">Max</label>
+        <input type="text" name="max">
+        <br>
+        <br>
+        <button type="submit">Submit</button>
+      </form>
     </div>
     <div id="items-container">
       <table class="table">

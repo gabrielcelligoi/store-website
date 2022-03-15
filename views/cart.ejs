@@ -27,9 +27,9 @@
           <tr>
             <% for (let key in cartItem) { %>
             <td><img src="<%=cartItem[key].image%>">&ensp;<%= cartItem[key].name %></td>
-            <td>$<%= cartItem[key].price%></td>
+            <td>$<%= cartItem[key].price /100 %></td>
             <td>1</td>
-            <td>$<%= cartItem[key].price %></td>
+            <td>$<%= cartItem[key].price / 100 %></td>
             <td><form method="POST" action="/cart/<%= cartItem[key].id %>">
               <button class="delete">Remove</button>
               </form>
@@ -42,7 +42,7 @@
 
       <div class="cart-footer">
         <div class="footer-total"><h3>TOTAL</h3><% for (let key in cartItem) { %>
-                                    <% total+= cartItem[key].price %>
+                                    <% total+= cartItem[key].price / 100 %>
                                 <% } %>
                                 $<%= total %></div>
         <form id="update" action="/cart" method="POST">

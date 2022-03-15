@@ -27,7 +27,7 @@
           <tr>
             <% for (let key in favorites) { %>
             <td><img src="<%=favorites[key].image%>">&ensp;<%= favorites[key].name %></td>
-            <td>$<%= favorites[key].price%></td>
+            <td>$<%= favorites[key].price / 100%></td>
             <td>
               <form class="add" method="GET" action="/products/<%= favorites[key].id %>">
                 <button type="submit">Visit</button>
