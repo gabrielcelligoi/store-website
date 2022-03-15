@@ -72,7 +72,28 @@ const featuredProductsList = function() {
   })
 }
 
+const getProductsBySellerId = function(id) {
+  return db.query(`
+  SELECT *
+  FROM products
+  WHERE seller_id = $1
+  `, [id])
+  .then(products => {
+    return products.rows
+  })
+}
+
+const deleteProductByySellerId = function(seller_id, product_id) {
+  return db.query(`
+  DELETE
+  FROM products
+  WHERE seller_id = $1 AND id = $2;
+  `, [seller_id, product_id])
+  .then(products => {
+    return products.rows
+  })
+}
 
 
 
-module.exports = { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById };
+module.exports = { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId, deleteProductByySellerId };

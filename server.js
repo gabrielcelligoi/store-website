@@ -9,7 +9,7 @@ const app = express();
 const morgan = require("morgan");
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
-const { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById } = require("./database");
+const { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId, deleteProductByySellerId } = require("./database");
 
 
 // PG database client/connection setup
@@ -71,6 +71,8 @@ const cart = {}
 const favorites = {}
 
 app.get("/", (req, res) => {
+  console.log(req.session.user_id)
+  console.log(req.session.seller_id)
   getUserById(req.session.user_id)
   .then(userData => {
     return userData;
@@ -81,7 +83,8 @@ app.get("/", (req, res) => {
       .then(products => {
       const templateVars = {
         products: products,
-        user: userData
+        user: userData,
+        seller: req.session.seller_id
       }
 
       res.render("index", templateVars)
@@ -97,7 +100,9 @@ app.get("/register", (req, res) => {
   getUserById(req.session.user_id)
   .then(userData => {
     const templateVars = {
-      user: userData
+      user: userData,
+      seller: req.session.seller_id
+
     }
     res.render("register_view", templateVars);
   })
@@ -158,7 +163,8 @@ app.get("/login", (req, res) => {
   getUserById(req.session.user_id)
   .then(userData => {
     const templateVars = {
-      user: userData
+      user: userData,
+      seller: req.session.seller_id
     }
     res.render("login_view", templateVars);
   })
@@ -197,7 +203,9 @@ app.get("/newlisting", (req, res) => {
   getUserById(req.session.user_id)
   .then(userData => {
     const templateVars = {
-      user: userData
+      user: userData,
+      seller: req.session.seller_id
+
     }
     res.render("newlisting", templateVars);
   })
@@ -228,6 +236,7 @@ app.get("/products/:product_id", (req, res) => {
     getProduct(req.params.product_id)
     .then(product => {
       const templateVars = {
+        seller: req.session.seller_id,
         user: userData,
         name: product[0].name,
         price: product[0].price / 100,
@@ -259,7 +268,9 @@ app.get("/cart", (req, res) => {
     const templateVars = {
       user: userData,
       cartItem: cart,
-      total: 0
+      total: 0,
+      seller: req.session.seller_id
+
     }
       res.render("cart", templateVars)
   })
@@ -275,7 +286,9 @@ app.get("/products", (req, res) => {
   getUserById(req.session.user_id)
   .then(userData => {
     const templateVars = {
-      user: userData
+      user: userData,
+      seller: req.session.seller_id
+
     }
     res.render("browse", templateVars);
   })
@@ -294,7 +307,9 @@ app.get("/favorites", (req, res) => {
     if(req.session.user_id) {
       const templateVars = {
         user: userData,
-        favorites: favorites
+        favorites: favorites,
+        seller: req.session.seller_id
+
       }
 
       res.render("favorites", templateVars)
@@ -314,4 +329,31 @@ app.post("/favorites/:product_id", (req, res) => { //I still don't change the WE
   })
 
   res.redirect(`/products/${req.params.product_id}`)
+})
+
+
+app.get("/sellerlistings", (req,res) => {
+  getUserById(req.session.user_id)
+  .then(userData => {
+    return userData
+  })
+  .then(userData => {
+    getProductsBySellerId(req.session.seller_id)
+    .then(data => {
+      const templateVars = {
+        products: data,
+        seller: req.session.seller_id,
+        user:userData
+      }
+      res.render("sellerlistings", templateVars)
+
+    })
+  })
+})
+
+app.post("/sellerlistings/:product_id", (req,res) => {
+  deleteProductByySellerId(req.session.seller_id, req.params.product_id)
+  .then(data => {
+    res.redirect("/sellerlistings")
+  })
 })
