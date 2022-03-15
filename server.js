@@ -11,7 +11,6 @@ const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId, deleteProductBySellerId, updateToSoldByProductId, updateToNotSoldByProductId } = require("./database");
 
-
 // PG database client/connection setup
 const { Pool } = require("pg");
 const dbParams = require("./lib/db.js");
@@ -279,6 +278,7 @@ app.get("/cart", (req, res) => {
       seller: req.session.seller_id
 
     }
+    console.log(templateVars['cartItem'])
       res.render("cart", templateVars)
   })
 })
@@ -366,5 +366,12 @@ app.post("/sellerlistings/:product_id", (req,res) => {
 })
 
 app.post("/cart/:product_id", (req, res) => {
-
+  updateToNotSoldByProductId(req.params.product_id)
+  .then(data => {
+    for (let key in cart) {
+      if (cart[key].id == req.params.product_id)
+        delete cart[key]
+    }
+    res.redirect("/cart")
+  })
 })
