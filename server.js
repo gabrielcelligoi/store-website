@@ -375,3 +375,11 @@ app.post("/cart/:product_id", (req, res) => {
     res.redirect("/cart")
   })
 })
+
+app.post("/favorites/:product_id/remove", (req, res) => {
+  for (let key in favorites) {
+    if (favorites[key].id == req.params.product_id)
+      delete favorites[key]
+  }
+  res.redirect("/favorites")
+})
