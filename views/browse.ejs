@@ -12,32 +12,38 @@
 
     </div>
     <div id="items-container">
-      <div class="column">
-        <div class="product-container">
-          <a href="/products/9">
-        <img src="https://www.petfoodindustry.com/ext/resources/Images-by-month-year/20_11/Generic-pet-food-bag.jpg?t=1605704299&width=1080">
-          <h4>PRODUCT NAME</h4>
-          <span>PRICE</span>
-          </a>
-        </div>
+      <table class="table">
+        <thead>
 
-      </div>
-      <div class="column">
-        <div class="product-container">
-          <a href="/products/10">
-            <img src="https://www.thesprucepets.com/thmb/dFGxtCACFifTJUm9zMlmKf4ZydA=/900x0/filters:no_upscale():max_bytes(150000):strip_icc()/Pedigree-4a19c0b74f644dd49cf7451c652d2532.jpg">
-            <h4>PRODUCT NAME</h4>
-            <span>PRICE</span>
-          </a>
-        </div>
+          <tr>
+            <th scope="col">Thumbnail</th>
+            <th scope="col">Title</th>
+            <th scope="col">Price</th>
+            <th scope="col">Visit</th>
+          </tr>
+        </thead>
+        <tbody>
 
-      </div>
-      <div class="column">
-        <div class="product-container">
+          <% for (let key in product) { %>
+            <tr>
+            <td class="product-td"><div class="product-container">
+              <a href="/products/<%=product[key].id %>">
+                <img src="<%= product[key].image %>"></td>
 
-          test product 3
+                <td><h4><%= product[key].name %></h4></td>
+               <td> <span>$<%= product[key].price / 100%></span></td>
+               <td><form class="add" method="GET" action="/products/<%= product[key].id %>">
+                 <button type="submit">Visit</button>
+               </form>  </td>
+              </a>
+            </div>
+          </tr>
 
-        </div>
+              <% } %>
+
+          </tbody>
+
+
       </div>
     </div>
   </div>

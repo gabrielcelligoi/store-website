@@ -292,14 +292,21 @@ app.get("/cart.json", (req, res) => {
 app.get("/products", (req, res) => {
   getUserById(req.session.user_id)
   .then(userData => {
-    const templateVars = {
-      user: userData,
-      seller: req.session.seller_id
-
-    }
-    res.render("browse", templateVars);
+    return userData
   })
+  .then(userData => {
+    getAllProducts()
+    .then(data => {
+      const templateVars = {
+        user: userData,
+        seller: req.session.seller_id,
+        product: data
+      }
+      console.log(templateVars['product'])
+      res.render("browse", templateVars);
 
+    })
+  })
 })
 
 
