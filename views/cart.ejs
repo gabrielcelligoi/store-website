@@ -32,7 +32,8 @@
             <td>$<%= cartItem[key].price %></td>
             <td><form method="POST" action="/cart/<%= cartItem[key].id %>">
               <button class="delete">Remove</button>
-            </form> </td>
+              </form>
+            </td>
           </tr>
         <% } %>
         </tbody>
