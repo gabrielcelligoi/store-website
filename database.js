@@ -116,5 +116,14 @@ const updateToNotSoldByProductId = function(id) {
   })
 }
 
+const getAllProducts = function() {
+  return db.query(`
+  SELECT *
+  FROM products;
+  `)
+  .then(products => {
+    return products.rows
+  })
+}
 
-module.exports = { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId, deleteProductBySellerId, updateToSoldByProductId, updateToNotSoldByProductId };
+module.exports = { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId, deleteProductBySellerId, updateToSoldByProductId, updateToNotSoldByProductId, getAllProducts };
