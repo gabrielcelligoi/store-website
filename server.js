@@ -76,6 +76,7 @@ app.get("/", (req, res) => {
       products: products,
       user: req.session.user_id
     }
+
     res.render("index", templateVars)
   })
 
@@ -128,12 +129,13 @@ app.post("/register", (req, res) => {
       .then (data => {
         console.log(data.rows[0])
         req.session.seller_id = data.rows[0].id
-        console.log(req.session)
+        console.log("register req.session", req.session)
         res.redirect("/");
       })
     }
 
     res.redirect("/");
+    // console.log("data.rows[0] is: ", data.rows[0])
     return data.rows[0];
   })
   .catch(error => {
@@ -170,8 +172,9 @@ app.post("/login", (req, res) => {
           res.send({error: "error"});
           return;
         }
-        req.session.userId = user.id;
-        res.send({user: {name: user.name, email: user.email, id: user.id}});
+        req.session.user_id = user.id;
+        // res.send({user: {name: user.name, email: user.email, id: user.id}});
+        return res.redirect("/");
       })
       .catch(e => res.send(e));
 
@@ -213,7 +216,7 @@ app.get("/products/:product_id", (req, res) => {
       image: product[0].image,
       product_id: req.params.product_id
     }
-    console.log(product[0].name)
+    // console.log(product[0].name)
     res.render("product", templateVars)
   })
 });

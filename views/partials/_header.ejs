@@ -41,7 +41,7 @@
     <div class="search-with-login">
       <div id="login-register">
         <% if (user) { %>
-          <span class="welcome">WELCOME BACK </span>
+          <span class="welcome">WELCOME BACK <%= user.name %> </span>
           <form id="logout" action="/logout" method="GET">
             <button type="submit">LOGOUT</button>
           </form>
