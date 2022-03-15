@@ -9,7 +9,7 @@ const app = express();
 const morgan = require("morgan");
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
-const { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId, deleteProductByySellerId, updateToSoldByProductId } = require("./database");
+const { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId, deleteProductBySellerId, updateToSoldByProductId, updateToNotSoldByProductId } = require("./database");
 
 
 // PG database client/connection setup
@@ -359,8 +359,12 @@ app.get("/sellerlistings", (req,res) => {
 })
 
 app.post("/sellerlistings/:product_id", (req,res) => {
-  deleteProductByySellerId(req.session.seller_id, req.params.product_id)
+  deleteProductBySellerId(req.session.seller_id, req.params.product_id)
   .then(data => {
     res.redirect("/sellerlistings")
   })
+})
+
+app.post("/cart/:product_id", (req, res) => {
+
 })
