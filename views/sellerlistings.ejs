@@ -1,42 +1,60 @@
 <!doctype html>
 <html lang="en">
   <head>
+
+      <!-- Bootstrap Link -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- App CSS -->
+    <link rel="stylesheet" href="/styles/sellerlistings.css" type="text/css" />
+
+
+
     <title>Your Listings</title>
+
+
+
     <%- include('partials/_header') %>
   </head>
 
 <body>
 
-  <div id="cart-container">
-    <div id="cart-title">Your Listings</div>
+  <main class="centered-flex">
 
-    <div id="cart-table">
-      <table class="table">
-        <thead>
+    <div class="form-shadow-listing">
 
-          <tr>
-            <th scope="col">Product</th>
-            <th scope="col">Price</th>
-            <th scope="col">Visit</th>
-            <th scope="col">Delete</th>
-          </tr>
+      <h3>Your Listings</h3>
 
-        </thead>
-        <tbody>
+      <div id="cart-table">
+        <table class="table">
+          <thead>
 
-          <tr>
-            <% for (let product of products) { %>
-              <td><img src="<%=product.image%>">&ensp;<%= product.name %></td>
-              <td>$<%= product.price%></td>
-              <td><form class="add" method="GET" action="/products/<%=product.id%>">
-                <button type="submit">Visit</button>
-                </form>
-              </td>
-              <td><form class="delete" method="POST" action="/sellerlistings/<%=product.id%>">
-                <button type="submit">DELETE</button>
-              </form></td>
+            <tr>
+              <th scope="col">Product</th>
+              <th scope="col">Price</th>
+              <th scope="col">Visit</th>
+              <th scope="col">Delete</th>
             </tr>
-              <% } %>
-              </tbody>
-      </table>
+
+          </thead>
+          <tbody>
+
+            <tr>
+              <% for (let product of products) { %>
+                <td><img src="<%=product.image%>">&ensp;<%= product.name %></td>
+                <td>$<%= product.price%></td>
+                <td><form method="GET" action="/products/<%=product.id%>">
+                  <button class="btn btn-outline-dark" type="submit">Visit</button>
+                  </form>
+                </td>
+                <td><form method="POST" action="/sellerlistings/<%=product.id%>">
+                  <button class="btn btn-outline-danger" type="submit">DELETE</button>
+                </form></td>
+              </tr>
+                <% } %>
+                </tbody>
+        </table>
+
+    </div>
+  </main>
 </body>

@@ -1,0 +1,65 @@
+.centered-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 75vh;
+  background-color: #dedede;
+}
+
+.form-shadow-listing {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 25px;
+  border-radius: 20px;
+  width: auto;
+  box-shadow: -10px -10px 25px 10px white, 5px 5px 25px 10px #555;
+  font-family: 'Work Sans', sans-serif;
+}
+
+body {
+
+  background: #dedede;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#seller {
+  display: none;
+}
+
+.img-container {
+  // background-image: url(../images/dog-and-cad-grass.jpg);
+  background-color: red;
+  height: 70%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 0;
+}
+
+.inner-img-container {
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  color: white;
+  height: auto;
+}
+
+#test {
+  background-image: url(../images/dog-and-cad-grass.jpg);
+  height: 500px;
+  width: 500px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+
