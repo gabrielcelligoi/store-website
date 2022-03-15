@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Your Listings</title>
+    <%- include('partials/_header') %>
+  </head>
+
+<body>
+
+  <div id="cart-container">
+    <div id="cart-title">Your Listings</div>
+
+    <div id="cart-table">
+      <table class="table">
+        <thead>
+
+          <tr>
+            <th scope="col">Product</th>
+            <th scope="col">Price</th>
+            <th scope="col">Visit</th>
+            <th scope="col">Delete</th>
+          </tr>
+
+        </thead>
+        <tbody>
+
+          <tr>
+            <% for (let product of products) { %>
+              <td><img src="<%=product.image%>">&ensp;<%= product.name %></td>
+              <td>$<%= product.price%></td>
+              <td><form class="add" method="GET" action="/products/<%=product.id%>">
+                <button type="submit">Visit</button>
+              </form></td>
+
+            </tr>
+              <% } %>
+              </tbody>
+      </table>
+</body>

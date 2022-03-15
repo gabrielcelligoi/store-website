@@ -72,7 +72,18 @@ const featuredProductsList = function() {
   })
 }
 
+const getProductsBySellerId = function(id) {
+  return db.query(`
+  SELECT *
+  FROM products
+  WHERE seller_id = $1
+  `, [id])
+  .then(products => {
+    return products.rows
+  })
+}
 
 
 
-module.exports = { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById };
+
+module.exports = { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId };

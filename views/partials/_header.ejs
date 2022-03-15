@@ -40,13 +40,19 @@
     </div>
     <div class="search-with-login">
       <div id="login-register">
-        <% if (user) { %>
+        <% if (seller) { %>
+          <span class="welcome">WELCOME BACK <a href="/sellerlistings"><%= user.name %></a> </span>
+          <form id="logout" action="/logout" method="GET">
+            <button type="submit">LOGOUT</button>
+          </form>
+          <% } %>
+        <% if (user && !seller) { %>
           <span class="welcome">WELCOME BACK <%= user.name %> </span>
           <form id="logout" action="/logout" method="GET">
             <button type="submit">LOGOUT</button>
           </form>
           <br>
-          <% } else { %>
+          <% } if (!user && !seller) { %>
         <a href="/login">Login</a>
         <a href="/register"> Register</a>
         <a class="icon" href="/cart"><i class="fa-solid fa-cart-shopping"></i></a>
