@@ -315,4 +315,3 @@ app.post("/favorites/:product_id", (req, res) => { //I still don't change the WE
 
   res.redirect(`/products/${req.params.product_id}`)
 })
-
