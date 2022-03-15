@@ -243,7 +243,8 @@ app.get("/products/:product_id", (req, res) => {
         stock: product[0].stock,
         description: product[0].description,
         image: product[0].image,
-        product_id: req.params.product_id
+        product_id: req.params.product_id,
+        sold: product[0].sold
       }
       // console.log(product[0].name)
       res.render("product", templateVars)
@@ -255,11 +256,17 @@ app.post('/products/:product_id', (req, res) => {
 
   getProduct(req.params.product_id)
   .then(data => {
-    cart[Object.keys(cart).length + 1] = data[0]
+    return cart[Object.keys(cart).length + 1] = data[0]
+  })
+  .then(data => {
+    updateToSoldByProductId(req.params.product_id)
+    return data
+  })
+  .then(data => {
+
+    res.redirect(`/products/${req.params.product_id}`)
   })
 
-
-  res.redirect(`/products/${req.params.product_id}`)
 })
 
 app.get("/cart", (req, res) => {

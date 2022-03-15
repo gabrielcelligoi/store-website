@@ -18,6 +18,9 @@
       <br>
       <div class="product-description"><%= description %></div>
       <br>
+      <% if (sold) { %>
+      <h3>PRODUCT SOLD</h3>
+      <% } else { %>
       <form action="/products/<%=product_id%>" method="POST" id="add-cart-btn">
         <label for="add-cart-btn" id="add-cart-btn" name="add-cart-btn"></label>
         <button type="submit">Add To Cart</button>
@@ -27,6 +30,7 @@
         <label for="add-fav-btn" id="add-fav-btn" name="add-fav-btn"></label>
         <button type="submit">Save For Later</button>
       </form>
+      <% } %>
     </div>
 
 
