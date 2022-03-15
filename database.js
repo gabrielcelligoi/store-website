@@ -94,6 +94,16 @@ const deleteProductByySellerId = function(seller_id, product_id) {
   })
 }
 
+const updateToSoldByProductId = function(id) {
+  return db.query(`
+  UPDATE products
+  SET sold = true
+  WHERE id = $1;
+  `, [id])
+  .then(products => {
+    return products.rows
+  })
+}
 
 
-module.exports = { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId, deleteProductByySellerId };
+module.exports = { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId, deleteProductByySellerId, updateToSoldByProductId };
