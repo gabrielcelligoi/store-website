@@ -1,8 +1,8 @@
 #cart-container {
-  border:.5em;
-  border-style: solid;
-  border-radius: .5em;
+  box-shadow: -10px -10px 25px 10px white, 5px 5px 25px 10px #555;
+  font-family: 'Work Sans', sans-serif;
   margin: 2em;
+  border-radius: 20px;
 
 }
 
@@ -10,13 +10,12 @@
 #cart-title {
   text-align: center;
   font-size: xx-large;
-  background-color: #badfbb;
+
 }
 
 .row-table {
   display: flex;
   padding: .5em;
-  background-color: #badfbb;
   .cart-product {
     width: 50%;
     font-size: x-large;
@@ -54,12 +53,19 @@
 }
 
 .cart-footer {
-  background-color: #badfbb;
   font-size: x-large;
   text-align: right;
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: baseline;
 }
 .footer-total {
+  display: flex;
   padding: 1em;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 #confirm {

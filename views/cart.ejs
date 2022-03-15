@@ -31,7 +31,7 @@
             <td>1</td>
             <td>$<%= cartItem[key].price %></td>
             <td><form method="POST" action="/cart/<%= cartItem[key].id %>">
-              <button class="delete">Remove</button>
+              <button class="btn btn-outline-danger">Remove</button>
               </form>
             </td>
           </tr>
@@ -46,10 +46,10 @@
                                 <% } %>
                                 $<%= total %></div>
         <form id="update" action="/cart" method="POST">
-          <button class="update-btn">UPDATE TOTALS</button>
+          <button class="btn btn-secondary">UPDATE TOTALS</button>
         </form>
         <form id="confirm" action="/purchase" method="POST">
-          <button class="confirm-btn">PURCHASE</button>
+          <button class="btn btn-success">PURCHASE</button>
         </form>
       </div>
 
