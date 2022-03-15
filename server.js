@@ -392,7 +392,6 @@ app.post("/favorites/:product_id/remove", (req, res) => {
 })
 
 app.post("/search", (req,res) => {
-  console.log("test", req.body.search)
   getUserById(req.session.user_id)
   .then(userData => {
     return userData
@@ -410,5 +409,71 @@ app.post("/search", (req,res) => {
 
     })
   })
+
+})
+
+
+app.post("/filter", (req, res) => {
+
+  if (req.body.min && req.body.max) {
+
+    getUserById(req.session.user_id)
+    .then(userData => {
+      return userData
+    })
+    .then(userData => {
+     getProductsBetweenPrice(req.body.min * 100, req.body.max * 100)
+      .then(data => {
+        const templateVars = {
+          user: userData,
+          seller: req.session.seller_id,
+          product: data
+        }
+        console.log(templateVars['product'])
+        res.render("browse", templateVars);
+
+      })
+    })
+
+  } else if (req.body.min && !req.body.max) {
+
+    getUserById(req.session.user_id)
+    .then(userData => {
+      return userData
+    })
+    .then(userData => {
+     getProductsByMinPrice(req.body.min * 100)
+      .then(data => {
+        const templateVars = {
+          user: userData,
+          seller: req.session.seller_id,
+          product: data
+        }
+        console.log(templateVars['product'])
+        res.render("browse", templateVars);
+
+      })
+    })
+  } else if (!req.body.min && req.body.max) {
+
+    getUserById(req.session.user_id)
+    .then(userData => {
+      return userData
+    })
+    .then(userData => {
+     getProductsByMaxPrice(req.body.max * 100)
+      .then(data => {
+        const templateVars = {
+          user: userData,
+          seller: req.session.seller_id,
+          product: data
+        }
+        console.log(templateVars['product'])
+        res.render("browse", templateVars);
+
+      })
+    })
+
+  }
 
 })

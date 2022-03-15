@@ -9,11 +9,15 @@
   <div id="browse-main-container">
     <div id="filter-container">
       <h3>Price Filters</h3>
-      <form method="POST" action="/filter">
-        <label for="min" name="min">Min</label>
+      <form method="POST" action="/filter" id="filter">
+        <div class="input-wrap">
+        <label for="min" name="min">Min:</label>
         <input type="text" name="min">
-        <label for="max" name="max">Max</label>
+      </div>
+      <div class="input-wrap">
+        <label for="max" name="max">Max:</label>
         <input type="text" name="max">
+      </div>
         <br>
         <br>
         <button type="submit">Submit</button>
