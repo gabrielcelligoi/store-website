@@ -19,6 +19,20 @@ const getUserWithEmail = function(email) {
   });
 };
 
+const getUserById = function(id) {
+  return db.query(`
+  Select *
+  FROM users
+  WHERE id = $1;
+  `, [id])
+  .then(data => {
+    return data.rows[0];
+  })
+  .catch(error => {
+    console.log(error.message)
+  })
+}
+
 const getProduct = function(id) {
   return db.query(`
   SELECT *
@@ -61,4 +75,4 @@ const featuredProductsList = function() {
 
 
 
-module.exports = { getUserWithEmail, getProduct, createListing, featuredProductsList };
+module.exports = { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById };

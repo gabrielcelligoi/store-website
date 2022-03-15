@@ -9,7 +9,7 @@ const app = express();
 const morgan = require("morgan");
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
-const { getUserWithEmail, getProduct, createListing, featuredProductsList } = require("./database");
+const { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById } = require("./database");
 
 
 // PG database client/connection setup
@@ -67,7 +67,7 @@ app.use("/api/widgets", widgetsRoutes(db));
 // Separate them into separate routes files (see above).
 
 const cart = {}
-
+const favorites = {}
 
 app.get("/", (req, res) => {
   featuredProductsList()
@@ -76,9 +76,9 @@ app.get("/", (req, res) => {
       products: products,
       user: req.session.user_id
     }
-    console.log(products)
     res.render("index", templateVars)
   })
+
 
 });
 
@@ -223,7 +223,6 @@ app.post('/products/:product_id', (req, res) => {
   getProduct(req.params.product_id)
   .then(data => {
     cart[Object.keys(cart).length + 1] = data[0]
-    console.log(cart)
   })
 
 
@@ -255,7 +254,31 @@ app.get("/products", (req, res) => {
 
 
 app.get("/logout", (req, res) => {
-
   req.session = null
   res.redirect("/")
 })
+
+app.get("/favorites", (req, res) => {
+  if(req.session.user_id) {
+    const templateVars = {
+      user: req.session.user_id,
+      favorites: favorites
+    }
+
+    res.render("favorites", templateVars)
+
+  } else {
+    res.redirect("/")
+  }
+})
+
+app.post("/favorites/:product_id", (req, res) => {
+
+  getProduct(req.params.product_id)
+  .then(data => {
+    favorites[Object.keys(favorites).length + 1] = data[0]
+  })
+
+  res.redirect(`/products/${req.params.product_id}`)
+})
+
