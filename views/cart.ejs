@@ -18,6 +18,7 @@
             <th scope="col">Price</th>
             <th scope="col">QTY</th>
             <th scope="col">Total</th>
+            <th scope="col">Remove</th>
           </tr>
 
         </thead>
@@ -29,6 +30,10 @@
             <td>$<%= cartItem[key].price%></td>
             <td>1</td>
             <td>$<%= cartItem[key].price %></td>
+            <td><form method="POST" action="/cart/<%= cartItem[key].id %>">
+              <button class="delete">Remove</button>
+              </form>
+            </td>
           </tr>
         <% } %>
         </tbody>

@@ -42,7 +42,8 @@ CREATE TABLE products (
   image TEXT NOT NULL,
   rating INTEGER,
   weight INTEGER,
-  is_featured BOOLEAN DEFAULT false
+  is_featured BOOLEAN DEFAULT false,
+  sold BOOLEAN DEFAULT false
 );
 
 

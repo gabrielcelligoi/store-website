@@ -18,6 +18,7 @@
             <th scope="col">Product</th>
             <th scope="col">Price</th>
             <th scope="col">Visit</th>
+            <th scope="col">Remove</th>
           </tr>
 
         </thead>
@@ -30,6 +31,11 @@
             <td>
               <form class="add" method="GET" action="/products/<%= favorites[key].id %>">
                 <button type="submit">Visit</button>
+              </form>
+            </td>
+            <td>
+              <form class="delete" method="POST" action="/favorites/<%= favorites[key].id %>/remove">
+                <button type="submit">Remove</button>
               </form>
             </td>
           </tr>

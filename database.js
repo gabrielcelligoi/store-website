@@ -83,7 +83,7 @@ const getProductsBySellerId = function(id) {
   })
 }
 
-const deleteProductByySellerId = function(seller_id, product_id) {
+const deleteProductBySellerId = function(seller_id, product_id) {
   return db.query(`
   DELETE
   FROM products
@@ -94,6 +94,27 @@ const deleteProductByySellerId = function(seller_id, product_id) {
   })
 }
 
+const updateToSoldByProductId = function(id) {
+  return db.query(`
+  UPDATE products
+  SET sold = true
+  WHERE id = $1;
+  `, [id])
+  .then(products => {
+    return products.rows
+  })
+}
+
+const updateToNotSoldByProductId = function(id) {
+  return db.query(`
+  UPDATE products
+  SET sold = false
+  WHERE id = $1;
+  `, [id])
+  .then(products => {
+    return products.rows
+  })
+}
 
 
-module.exports = { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId, deleteProductByySellerId };
+module.exports = { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId, deleteProductBySellerId, updateToSoldByProductId, updateToNotSoldByProductId };

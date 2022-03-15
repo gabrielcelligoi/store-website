@@ -9,8 +9,7 @@ const app = express();
 const morgan = require("morgan");
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
-const { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId, deleteProductByySellerId } = require("./database");
-
+const { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId, deleteProductBySellerId, updateToSoldByProductId, updateToNotSoldByProductId } = require("./database");
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -243,7 +242,8 @@ app.get("/products/:product_id", (req, res) => {
         stock: product[0].stock,
         description: product[0].description,
         image: product[0].image,
-        product_id: req.params.product_id
+        product_id: req.params.product_id,
+        sold: product[0].sold
       }
       // console.log(product[0].name)
       res.render("product", templateVars)
@@ -255,11 +255,17 @@ app.post('/products/:product_id', (req, res) => {
 
   getProduct(req.params.product_id)
   .then(data => {
-    cart[Object.keys(cart).length + 1] = data[0]
+    return cart[Object.keys(cart).length + 1] = data[0]
+  })
+  .then(data => {
+    updateToSoldByProductId(req.params.product_id)
+    return data
+  })
+  .then(data => {
+
+    res.redirect(`/products/${req.params.product_id}`)
   })
 
-
-  res.redirect(`/products/${req.params.product_id}`)
 })
 
 app.get("/cart", (req, res) => {
@@ -272,6 +278,7 @@ app.get("/cart", (req, res) => {
       seller: req.session.seller_id
 
     }
+    console.log(templateVars['cartItem'])
       res.render("cart", templateVars)
   })
 })
@@ -352,8 +359,27 @@ app.get("/sellerlistings", (req,res) => {
 })
 
 app.post("/sellerlistings/:product_id", (req,res) => {
-  deleteProductByySellerId(req.session.seller_id, req.params.product_id)
+  deleteProductBySellerId(req.session.seller_id, req.params.product_id)
   .then(data => {
     res.redirect("/sellerlistings")
   })
+})
+
+app.post("/cart/:product_id", (req, res) => {
+  updateToNotSoldByProductId(req.params.product_id)
+  .then(data => {
+    for (let key in cart) {
+      if (cart[key].id == req.params.product_id)
+        delete cart[key]
+    }
+    res.redirect("/cart")
+  })
+})
+
+app.post("/favorites/:product_id/remove", (req, res) => {
+  for (let key in favorites) {
+    if (favorites[key].id == req.params.product_id)
+      delete favorites[key]
+  }
+  res.redirect("/favorites")
 })
