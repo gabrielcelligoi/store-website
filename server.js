@@ -53,6 +53,7 @@ app.use(cookieSession({
 // Note: Feel free to replace the example routes below with your own
 const usersRoutes = require("./routes/users");
 const widgetsRoutes = require("./routes/widgets");
+const { user } = require("pg/lib/defaults");
 // const registerRoutes = require("./routes/register");
 
 // Mount all resource routes
@@ -70,17 +71,22 @@ const cart = {}
 const favorites = {}
 
 app.get("/", (req, res) => {
-  featuredProductsList()
-  .then(products => {
-    const templateVars = {
-      products: products,
-      user: req.session.user_id
-    }
-
-    res.render("index", templateVars)
+  getUserById(req.session.user_id)
+  .then(userData => {
+    return userData;
   })
 
+  .then (userData => {
+    featuredProductsList()
+      .then(products => {
+      const templateVars = {
+        products: products,
+        user: userData
+      }
 
+      res.render("index", templateVars)
+    })
+  })
 });
 
 app.listen(PORT, () => {
@@ -88,10 +94,13 @@ app.listen(PORT, () => {
 });
 
 app.get("/register", (req, res) => {
-  const templateVars = {
-    user: req.session.user_id
-  }
-  res.render("register_view", templateVars);
+  getUserById(req.session.user_id)
+  .then(userData => {
+    const templateVars = {
+      user: userData
+    }
+    res.render("register_view", templateVars);
+  })
 });
 
 app.post("/register", (req, res) => {
@@ -146,10 +155,13 @@ app.post("/register", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-  const templateVars = {
-    user: req.session.user_id
-  }
-  res.render("login_view", templateVars);
+  getUserById(req.session.user_id)
+  .then(userData => {
+    const templateVars = {
+      user: userData
+    }
+    res.render("login_view", templateVars);
+  })
 });
 
 app.post("/login", (req, res) => {
@@ -182,11 +194,13 @@ app.post("/login", (req, res) => {
 })
 
 app.get("/newlisting", (req, res) => {
-  const templateVars = {
-    user: req.session.user_id
-  }
-
-  res.render("newlisting", templateVars);
+  getUserById(req.session.user_id)
+  .then(userData => {
+    const templateVars = {
+      user: userData
+    }
+    res.render("newlisting", templateVars);
+  })
 });
 
 app.post("/newlisting", (req,res) => {
@@ -205,19 +219,26 @@ app.post("/newlisting", (req,res) => {
 })
 
 app.get("/products/:product_id", (req, res) => {
-  getProduct(req.params.product_id)
-  .then(product => {
-    const templateVars = {
-      user: req.session.user_id,
-      name: product[0].name,
-      price: product[0].price / 100,
-      stock: product[0].stock,
-      description: product[0].description,
-      image: product[0].image,
-      product_id: req.params.product_id
-    }
-    // console.log(product[0].name)
-    res.render("product", templateVars)
+  getUserById(req.session.user_id)
+  .then(userData => {
+    return userData;
+  })
+
+  .then (userData => {
+    getProduct(req.params.product_id)
+    .then(product => {
+      const templateVars = {
+        user: userData,
+        name: product[0].name,
+        price: product[0].price / 100,
+        stock: product[0].stock,
+        description: product[0].description,
+        image: product[0].image,
+        product_id: req.params.product_id
+      }
+      // console.log(product[0].name)
+      res.render("product", templateVars)
+    })
   })
 });
 
@@ -233,13 +254,15 @@ app.post('/products/:product_id', (req, res) => {
 })
 
 app.get("/cart", (req, res) => {
-
-  const templateVars = {
-    user: req.session.user_id,
-    cartItem: cart,
-    total: 0
-  }
-    res.render("cart", templateVars)
+  getUserById(req.session.user_id)
+  .then(userData => {
+    const templateVars = {
+      user: userData,
+      cartItem: cart,
+      total: 0
+    }
+      res.render("cart", templateVars)
+  })
 })
 
 
@@ -249,10 +272,14 @@ app.get("/cart.json", (req, res) => {
 })
 
 app.get("/products", (req, res) => {
-  const templateVars = {
-    user: req.session.user_id
-  }
-  res.render("browse", templateVars)
+  getUserById(req.session.user_id)
+  .then(userData => {
+    const templateVars = {
+      user: userData
+    }
+    res.render("browse", templateVars);
+  })
+
 })
 
 
@@ -262,20 +289,24 @@ app.get("/logout", (req, res) => {
 })
 
 app.get("/favorites", (req, res) => {
-  if(req.session.user_id) {
-    const templateVars = {
-      user: req.session.user_id,
-      favorites: favorites
+  getUserById(req.session.user_id)
+  .then(userData => {
+    if(req.session.user_id) {
+      const templateVars = {
+        user: userData,
+        favorites: favorites
+      }
+
+      res.render("favorites", templateVars)
+
+    } else {
+      res.redirect("/")
     }
 
-    res.render("favorites", templateVars)
-
-  } else {
-    res.redirect("/")
-  }
+  })
 })
 
-app.post("/favorites/:product_id", (req, res) => {
+app.post("/favorites/:product_id", (req, res) => { //I still don't change the WELCOME (name) on navbar here
 
   getProduct(req.params.product_id)
   .then(data => {
