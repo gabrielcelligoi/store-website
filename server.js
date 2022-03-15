@@ -330,6 +330,7 @@ app.post("/favorites/:product_id", (req, res) => { //I still don't change the WE
 
   res.redirect(`/products/${req.params.product_id}`)
 })
+<<<<<<< HEAD
 
 
 app.get("/sellerlistings", (req,res) => {
@@ -357,3 +358,5 @@ app.post("/sellerlistings/:product_id", (req,res) => {
     res.redirect("/sellerlistings")
   })
 })
+=======
+>>>>>>> bd090d149e482fdb83db5b185451ce4274c49171
