@@ -221,6 +221,7 @@ app.post("/login", (req, res) => {
         }
         console.log(user)
         req.session.user_id = user.id;
+        req.session.seller_id = user.seller_id
         // res.send({user: {name: user.name, email: user.email, id: user.id}});
         return res.redirect("/");
       })
