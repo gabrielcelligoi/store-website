@@ -73,8 +73,6 @@ const favorites = {}
 const msg = {}
 
 app.get("/", (req, res) => {
-  console.log(req.session.user_id)
-  console.log(req.session.seller_id)
   getUserById(req.session.user_id)
   .then(userData => {
     return userData;
@@ -161,6 +159,35 @@ app.post("/register", (req, res) => {
 
 });
 
+app.get("/error1", (req, res) => {
+
+  getUserById(req.session.user_id)
+  .then(userData => {
+    const templateVars = {
+      user: userData,
+      seller: req.session.seller_id
+    }
+    res.render("error1", templateVars);
+  })
+
+})
+
+app.get("/error2", (req, res) => {
+
+  getUserById(req.session.user_id)
+  .then(userData => {
+    const templateVars = {
+      user: userData,
+      seller: req.session.seller_id
+    }
+    res.render("error2", templateVars);
+  })
+
+
+})
+
+
+
 app.get("/login", (req, res) => {
   getUserById(req.session.user_id)
   .then(userData => {
@@ -192,6 +219,7 @@ app.post("/login", (req, res) => {
           res.send({error: "error"});
           return;
         }
+        console.log(user)
         req.session.user_id = user.id;
         // res.send({user: {name: user.name, email: user.email, id: user.id}});
         return res.redirect("/");
@@ -202,6 +230,7 @@ app.post("/login", (req, res) => {
 })
 
 app.get("/newlisting", (req, res) => {
+  if (req.session.seller_id) {
   getUserById(req.session.user_id)
   .then(userData => {
     const templateVars = {
@@ -211,6 +240,9 @@ app.get("/newlisting", (req, res) => {
     }
     res.render("newlisting", templateVars);
   })
+  } else {
+    res.redirect("error2")
+  }
 });
 
 app.post("/newlisting", (req,res) => {
@@ -272,6 +304,9 @@ app.post('/products/:product_id', (req, res) => {
 })
 
 app.get("/cart", (req, res) => {
+
+  if (req.session.user_id) {
+
   getUserById(req.session.user_id)
   .then(userData => {
     const templateVars = {
@@ -284,7 +319,11 @@ app.get("/cart", (req, res) => {
     console.log(templateVars['cartItem'])
       res.render("cart", templateVars)
   })
+} else {
+  res.redirect("error1")
+}
 })
+
 
 
 
@@ -332,7 +371,7 @@ app.get("/favorites", (req, res) => {
       res.render("favorites", templateVars)
 
     } else {
-      res.redirect("/")
+      res.redirect("error1")
     }
 
   })
@@ -340,16 +379,21 @@ app.get("/favorites", (req, res) => {
 
 app.post("/favorites/:product_id", (req, res) => { //I still don't change the WELCOME (name) on navbar here
 
+if (req.session.user_id) {
   getProduct(req.params.product_id)
   .then(data => {
     favorites[Object.keys(favorites).length + 1] = data[0]
   })
 
   res.redirect(`/products/${req.params.product_id}`)
+} else {
+
+  res.redirect("/error1")
+}
+
 })
-
-
 app.get("/sellerlistings", (req,res) => {
+if (req.session.seller_id) {
   getUserById(req.session.user_id)
   .then(userData => {
     return userData
@@ -366,33 +410,53 @@ app.get("/sellerlistings", (req,res) => {
 
     })
   })
+} else {
+  res.redirect("error2")
+}
 })
 
 app.post("/sellerlistings/:product_id", (req,res) => {
-  deleteProductBySellerId(req.session.seller_id, req.params.product_id)
+
+if (req.session.seller_id) {
+   deleteProductBySellerId(req.session.seller_id, req.params.product_id)
   .then(data => {
     res.redirect("/sellerlistings")
   })
+} else {
+  res.redirect("error2")
+}
 })
 
 app.post("/cart/:product_id", (req, res) => {
-  updateToNotSoldByProductId(req.params.product_id)
-  .then(data => {
-    for (let key in cart) {
-      if (cart[key].id == req.params.product_id)
+
+  if (req.session.user_id) {
+
+    updateToNotSoldByProductId(req.params.product_id)
+    .then(data => {
+      for (let key in cart) {
+        if (cart[key].id == req.params.product_id)
         delete cart[key]
-    }
-    res.redirect("/cart")
-  })
+      }
+      res.redirect("/cart")
+    })
+  } else {
+    res.redirect("/error1")
+  }
 })
 
 app.post("/favorites/:product_id/remove", (req, res) => {
-  for (let key in favorites) {
-    if (favorites[key].id == req.params.product_id)
+
+  if (req.session.user_id) {
+
+    for (let key in favorites) {
+      if (favorites[key].id == req.params.product_id)
       delete favorites[key]
+    }
+    res.redirect("/favorites")
+  } else {
+    res.redirect("/error1")
   }
-  res.redirect("/favorites")
-})
+  })
 
 app.post("/search", (req,res) => {
   getUserById(req.session.user_id)
@@ -483,71 +547,92 @@ app.post("/filter", (req, res) => {
 
 
 app.post("/send/:product_id", (req,res) => {
-  getUserEmailByProductId(req.params.product_id)
-  .then(result => {
-    console.log(result)
-    msg['to'] = result[0].email
-    msg['from'] = 'petstoremidterm@gmail.com'
-    msg['subject'] = result[0].subject
-    msg['html'] = `${req.body.msg_box} <br>Click <a href="http://localhost:8080/sendmessage/${req.session.user_id}">Here</a> To Respond`
-    sgMail.send(msg)
-    .then(() => {
-      console.log('Email Sent')
+
+  if (req.session.user_id) {
+
+    getUserEmailByProductId(req.params.product_id)
+    .then(result => {
+      console.log(result)
+      msg['to'] = result[0].email
+      msg['from'] = 'petstoremidterm@gmail.com'
+      msg['subject'] = result[0].subject
+      msg['html'] = `${req.body.msg_box} <br>Click <a href="http://localhost:8080/sendmessage/${req.session.user_id}">Here</a> To Respond`
+      sgMail.send(msg)
+      .then(() => {
+        console.log('Email Sent')
+      })
+      .catch((error) => {
+        console.error(error)
+      })
     })
-    .catch((error) => {
-      console.error(error)
-    })
-  })
-  res.redirect(`/products/${req.params.product_id}`)
+    res.redirect(`/products/${req.params.product_id}`)
+  } else {
+    res.redirect("/error1")
+  }
 })
 
 
 app.get("/sendmessage", (req,res) => {
 
-  getUserById(req.session.user_id)
-  .then(userData => {
-    const templateVars = {
-      user: userData,
-      seller: req.session.seller_id,
-      value: req.params.userid
-    }
-  res.render("send", templateVars)
-})
+  if (req.session.user_id) {
+
+    getUserById(req.session.user_id)
+    .then(userData => {
+      const templateVars = {
+        user: userData,
+        seller: req.session.seller_id,
+        value: req.params.userid
+      }
+      res.render("send", templateVars)
+    })
+  } else {
+    res.redirect("error1")
+  }
 })
 
 app.post("/sendmessage", (req,res) => {
-  getUserEmailByUserId(req.body.userid)
-  .then(result => {
-    console.log(result)
-    console.log(req.body.message)
+  if (req.session.user_id) {
 
-    msg['to'] = result[0].email
-    msg['from'] = 'petstoremidterm@gmail.com'
-    msg['subject'] = req.body.subject
-    msg['html'] = `${req.body.message} <br>Click <a href="http://localhost:8080/sendmessage/${req.session.user_id}">Here</a> To Respond`
+    getUserEmailByUserId(req.body.userid)
+    .then(result => {
+      console.log(result)
+      console.log(req.body.message)
 
-    sgMail.send(msg)
-    .then(res => {
-      console.log('Email Sent')
+      msg['to'] = result[0].email
+      msg['from'] = 'petstoremidterm@gmail.com'
+      msg['subject'] = req.body.subject
+      msg['html'] = `${req.body.message} <br>Click <a href="http://localhost:8080/sendmessage/${req.session.user_id}">Here</a> To Respond`
+
+      sgMail.send(msg)
+      .then(res => {
+        console.log('Email Sent')
+      })
+      .catch(error => {
+        console.error(error)
+      })
+      res.redirect("/sendmessage")
     })
-    .catch(error => {
-      console.error(error)
-    })
-    res.redirect("/sendmessage")
+
+  } else {
+    res.redirect("error1")
+  }
+
   })
-
-
-})
 
 app.get("/sendmessage/:userid", (req,res) => {
 
-  getUserById(req.session.user_id)
-  .then(userData => {
-    const templateVars = {
-      user: userData,
-      seller: req.session.seller_id,
-      value: req.params.userid
-    }
-  res.render("send", templateVars)
-})
+  if (req.session.user_id) {
+
+    getUserById(req.session.user_id)
+    .then(userData => {
+      const templateVars = {
+        user: userData,
+        seller: req.session.seller_id,
+        value: req.params.userid
+      }
+      res.render("send", templateVars)
+    })
+  } else {
+    res.redirect("/error1")
+  }
 })
