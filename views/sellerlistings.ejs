@@ -42,7 +42,7 @@
             <tr>
               <% for (let product of products) { %>
                 <td><img src="<%=product.image%>">&ensp;<%= product.name %></td>
-                <td>$<%= product.price%></td>
+                <td>$<%= product.price / 100%></td>
                 <td><form method="GET" action="/products/<%=product.id%>">
                   <button class="btn btn-outline-dark" type="submit">Visit</button>
                   </form>
