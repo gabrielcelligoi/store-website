@@ -2,28 +2,15 @@
 <html lang="en">
   <head>
     <title>Cart</title>
-    <%- include('partials/_header') %>
-  </head>
+    <%- include('partials/_nav-bar') %>
 
-<body>
-  <div id="cart-container">
-    <div id="cart-title">Cart</div>
+    <!-- Bootstrap Link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <div id="cart-table">
-      <table class="table">
-        <thead>
+  <!-- App CSS -->
+  <link rel="stylesheet" href="/styles/cart.css" type="text/css" />
 
-          <tr>
-            <th scope="col">Product</th>
-            <th scope="col">Price</th>
-            <th scope="col">QTY</th>
-            <th scope="col">Total</th>
-            <th scope="col">Remove</th>
-          </tr>
-
-        </thead>
-        <tbody>
-
+<<<<<<< HEAD
           <tr>
             <% for (let key in cartItem) { %>
             <td><img src="<%=cartItem[key].image%>">&ensp;<%= cartItem[key].name %></td>
@@ -38,7 +25,58 @@
         <% } %>
         </tbody>
       </table>
+=======
+  </head>
+>>>>>>> 2355469553bb29fb5ed36079b1359e05db3701c7
 
+<body>
+  <div id="centered-flex-cart">
+    <div id="cart-container">
+      <div id="cart-title">Cart</div>
+
+      <div id="cart-table">
+        <table class="table">
+          <thead>
+
+            <tr>
+              <th scope="col">Product</th>
+              <th scope="col">Price</th>
+              <th scope="col">QTY</th>
+              <th scope="col">Total</th>
+              <th scope="col">Remove</th>
+            </tr>
+
+          </thead>
+          <tbody>
+
+            <tr>
+              <% for (let key in cartItem) { %>
+              <td><img src="<%=cartItem[key].image%>">&ensp;<%= cartItem[key].name %></td>
+              <td>$<%= cartItem[key].price%></td>
+              <td>1</td>
+              <td>$<%= cartItem[key].price %></td>
+              <td><form method="POST" action="/cart/<%= cartItem[key].id %>">
+                <button class="btn btn-outline-danger">Remove</button>
+                </form>
+              </td>
+            </tr>
+          <% } %>
+          </tbody>
+        </table>
+
+
+        <div class="cart-footer">
+          <div class="footer-total"><h3>TOTAL</h3><% for (let key in cartItem) { %>
+                                      <% total+= cartItem[key].price %>
+                                  <% } %>
+                                  $<%= total %></div>
+          <form id="update" action="/cart" method="POST">
+            <button class="btn btn-secondary">UPDATE TOTALS</button>
+          </form>
+          <form id="confirm" action="/purchase" method="POST">
+            <button class="btn btn-success">PURCHASE</button>
+          </form>
+        </div>
 
       <div class="cart-footer">
         <div class="footer-total"><h3>TOTAL</h3><% for (let key in cartItem) { %>
@@ -53,14 +91,8 @@
         </form>
       </div>
 
+
     </div>
-
-
-
-
-
-
-
-
   </div>
+    <%- include('partials/_footer') %>
 </body>

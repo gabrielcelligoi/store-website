@@ -1,17 +1,26 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title></title>
-    <%- include('partials/_header') %>
+      <!-- Bootstrap Link -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+      <!-- App CSS -->
+      <link rel="stylesheet" href="/styles/product.css" type="text/css" />
+
+
+    <title>Product</title>
+    <%- include('partials/_nav-bar') %>
   </head>
 
 
 <body>
 
   <main id="product-container">
+
     <div id="product-image">
       <img src="<%= image  %>">
     </div>
+
     <div id="product-info">
       <div id="product-title"><%= name %></div>
       <div class="price-quant">$&nbsp;<%= price %><span class="price-quant">Stock:&nbsp;<%= stock %></span></div>
@@ -21,15 +30,17 @@
       <% if (sold) { %>
       <h3>PRODUCT SOLD</h3>
       <% } else { %>
-      <form action="/products/<%=product_id%>" method="POST" id="add-cart-btn">
-        <label for="add-cart-btn" id="add-cart-btn" name="add-cart-btn"></label>
-        <button type="submit">Add To Cart</button>
-      </form>
-      <br>
-      <form action="/favorites/<%=product_id%>" method="POST" id="add-fav-btn">
-        <label for="add-fav-btn" id="add-fav-btn" name="add-fav-btn"></label>
-        <button type="submit">Save For Later</button>
-      </form>
+        <div id="bottom-btns">
+          <form action="/products/<%=product_id%>" method="POST" id="add-cart-btn">
+            <label for="add-cart-btn" id="add-cart-btn" name="add-cart-btn"></label>
+            <button class="btn btn-outline-success" type="submit">Add To Cart</button>
+          </form>
+          <br>
+          <form action="/favorites/<%=product_id%>" method="POST" id="add-fav-btn">
+            <label for="add-fav-btn" id="add-fav-btn" name="add-fav-btn"></label>
+            <button class="btn btn-outline-dark" type="submit">Save For Later</button>
+          </form>
+        </div>
       <% } %>
     </div>
 
@@ -38,7 +49,7 @@
 
 
 
-
+  <%- include('partials/_footer') %>
 
 
 </body>

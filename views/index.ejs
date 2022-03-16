@@ -11,8 +11,7 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;1,200;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Righteous&family=Work+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;1,200;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
   <!-- App CSS -->
   <link rel="stylesheet" href="/styles/index.css" type="text/css" />
 
@@ -24,7 +23,6 @@
   <script type="text/javascript" src="/scripts/app.js"></script>
 
 
-  <%- include('partials/_header'), {user: user} %>
 
   <title>PetStore</title>
 </head>
@@ -32,6 +30,7 @@
 
 <body>
 
+  <%- include('partials/_nav-bar'), {user: user} %>
   <div class="img-container">
     <div class="inner-img-container">
       <h1>Find What Your Pet Need</h1>
@@ -50,7 +49,7 @@
           <img class="image" src=<%= product.image %> >
         </section>
         <section class="product-name">
-          <h5><%=product.name%></h5>
+          <h6><%=product.name%></h6>
         </section>
         <section class="product-price">
           <p>$<%=product.price / 100%></p>
@@ -61,49 +60,9 @@
 
 
 
-
-    <!-- <article class="product" id="product1">
-      <section class="product-img">
-        <img class="image" src="https://marketplacer.imgix.net/mH/iyRlDMoVuXLb_QPN-FdlFSV-I.jpg?auto=format&fm=pjpg&fit=max&w=1200&h=1200&s=955be770d79a34b61ff0ae39948bf238" alt="product">
-      </section>
-      <section class="product-name">
-        <h5>Balenced Life Salmon Topper</h5>
-      </section>
-      <section class="product-price">
-        <p>7.95</p>
-      </section>
-    </article>
-
-    <article class="product" id="product2">
-      <section class="product-img">
-        <img class="image" src="https://cdn.shopify.com/s/files/1/2222/5817/products/43_1200x1200.png?v=1631741021" alt="product">
-      </section>
-      <section class="product-name">
-        <h5>LIVER JACKET - CAMO GOLD</h5>
-      </section>
-      <section class="product-price">
-        <p>59.00</p>
-      </section>
-    </article>
-
-    <article class="product" id="product3">
-      <section class="product-img">
-        <img class="image" src="https://marketplacer.imgix.net/qV/xooBBpny4SQG-HZ-xlDXv8Fzk.jpg?auto=format&fm=pjpg&fit=max&w=550&h=550&s=9d1ea9c3cd5a4d68f519ed086a03ec90" alt="product">
-      </section>
-      <section class="product-name">
-        <h5>Rogz Cuddle Oval Pod Green</h5>
-      </section>
-      <section class="product-price">
-        <p>29.00</p>
-      </section>
-    </article> -->
-
-
   </div>
 
-  <footer>
-    <p class="footer-info">The PetStore is a buy/sell Listing Website develop as a Midterm Group Project for Lighthouse Labs Web Development Bootcamp.</p>
-  </footer>
+  <%- include('partials/_footer') %>
 
 </body>
 </html>
