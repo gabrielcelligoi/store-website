@@ -9,26 +9,6 @@
 
   <!-- App CSS -->
   <link rel="stylesheet" href="/styles/cart.css" type="text/css" />
-
-<<<<<<< HEAD
-          <tr>
-            <% for (let key in cartItem) { %>
-            <td><img src="<%=cartItem[key].image%>">&ensp;<%= cartItem[key].name %></td>
-            <td>$<%= cartItem[key].price /100 %></td>
-            <td>1</td>
-            <td>$<%= cartItem[key].price / 100 %></td>
-            <td><form method="POST" action="/cart/<%= cartItem[key].id %>">
-              <button class="delete">Remove</button>
-              </form>
-            </td>
-          </tr>
-        <% } %>
-        </tbody>
-      </table>
-=======
-  </head>
->>>>>>> 2355469553bb29fb5ed36079b1359e05db3701c7
-
 <body>
   <div id="centered-flex-cart">
     <div id="cart-container">
@@ -52,9 +32,9 @@
             <tr>
               <% for (let key in cartItem) { %>
               <td><img src="<%=cartItem[key].image%>">&ensp;<%= cartItem[key].name %></td>
-              <td>$<%= cartItem[key].price%></td>
+              <td>$<%= cartItem[key].price / 100%></td>
               <td>1</td>
-              <td>$<%= cartItem[key].price %></td>
+              <td>$<%= cartItem[key].price / 100%></td>
               <td><form method="POST" action="/cart/<%= cartItem[key].id %>">
                 <button class="btn btn-outline-danger">Remove</button>
                 </form>
@@ -67,7 +47,7 @@
 
         <div class="cart-footer">
           <div class="footer-total"><h3>TOTAL</h3><% for (let key in cartItem) { %>
-                                      <% total+= cartItem[key].price %>
+                                      <% total+= cartItem[key].price / 100%>
                                   <% } %>
                                   $<%= total %></div>
           <form id="update" action="/cart" method="POST">
@@ -77,20 +57,6 @@
             <button class="btn btn-success">PURCHASE</button>
           </form>
         </div>
-
-      <div class="cart-footer">
-        <div class="footer-total"><h3>TOTAL</h3><% for (let key in cartItem) { %>
-                                    <% total+= cartItem[key].price / 100 %>
-                                <% } %>
-                                $<%= total %></div>
-        <form id="update" action="/cart" method="POST">
-          <button class="update-btn">UPDATE TOTALS</button>
-        </form>
-        <form id="confirm" action="/purchase" method="POST">
-          <button class="confirm-btn">PURCHASE</button>
-        </form>
-      </div>
-
 
     </div>
   </div>
