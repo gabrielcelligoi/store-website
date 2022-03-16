@@ -6,6 +6,7 @@
 
       <!-- App CSS -->
       <link rel="stylesheet" href="/styles/product.css" type="text/css" />
+      <script type="text/javascript" src="/scripts/app.js"></script>
 
 
     <title>Product</title>
@@ -36,12 +37,25 @@
             <button class="btn btn-outline-success" type="submit">Add To Cart</button>
           </form>
           <br>
+          <form action="/send" method="GET" id="add-msg-btn">
+            <label for="add-msg-btn" id="add-msg-btn" name="add-cart-btn"></label>
+            <button class="btn btn-outline-dark" type="submit">Message Seller</button>
+          </form>
+          <br>
           <form action="/favorites/<%=product_id%>" method="POST" id="add-fav-btn">
             <label for="add-fav-btn" id="add-fav-btn" name="add-fav-btn"></label>
             <button class="btn btn-outline-dark" type="submit">Save For Later</button>
           </form>
         </div>
       <% } %>
+        <div id="msg-container">
+          <form action="/send/<%= product_id %>" method="POST" id="msg">
+            <label for="message" id="msg-box" name="msg-box"></label>
+            <textarea id="msg-box" name="msg-box" placeholder="Enter Message Here"></textarea>
+            <button class="btn btn-outline-success" type="submit">Send</button>
+          </form>
+        </div>
+
     </div>
 
 
