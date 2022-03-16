@@ -489,8 +489,7 @@ app.post("/send/:product_id", (req,res) => {
     msg['to'] = result[0].email
     msg['from'] = 'petstoremidterm@gmail.com'
     msg['subject'] = result[0].subject
-    msg['text'] =req.body.msg_box
-    msg['html'] = `<strong>Send Message To UserId ${req.session.user_id} To Respond</strong>`
+    msg['html'] = `${req.body.msg_box} <br>Click <a href="http://localhost:8080/sendmessage/${req.session.user_id}">Here</a> To Respond`
     sgMail.send(msg)
     .then(() => {
       console.log('Email Sent')
@@ -509,8 +508,8 @@ app.get("/sendmessage", (req,res) => {
   .then(userData => {
     const templateVars = {
       user: userData,
-      seller: req.session.seller_id
-
+      seller: req.session.seller_id,
+      value: req.params.userid
     }
   res.render("send", templateVars)
 })
@@ -520,13 +519,12 @@ app.post("/sendmessage", (req,res) => {
   getUserEmailByUserId(req.body.userid)
   .then(result => {
     console.log(result)
-    console.log(req.body)
+    console.log(req.body.message)
 
     msg['to'] = result[0].email
     msg['from'] = 'petstoremidterm@gmail.com'
     msg['subject'] = req.body.subject
-    msg['text'] = req.body.message
-    msg['html'] = `<strong>Send Message To UserId ${req.session.user_id} To Respond</strong>`
+    msg['html'] = `${req.body.message} <br>Click <a href="http://localhost:8080/sendmessage/${req.session.user_id}">Here</a> To Respond`
 
     sgMail.send(msg)
     .then(res => {
@@ -541,3 +539,15 @@ app.post("/sendmessage", (req,res) => {
 
 })
 
+app.get("/sendmessage/:userid", (req,res) => {
+
+  getUserById(req.session.user_id)
+  .then(userData => {
+    const templateVars = {
+      user: userData,
+      seller: req.session.seller_id,
+      value: req.params.userid
+    }
+  res.render("send", templateVars)
+})
+})
