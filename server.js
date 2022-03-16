@@ -383,3 +383,4 @@ app.post("/favorites/:product_id/remove", (req, res) => {
   }
   res.redirect("/favorites")
 })
+
