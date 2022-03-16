@@ -11,7 +11,7 @@ const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const sgMail = require('@sendgrid/mail')
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-const { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId, deleteProductBySellerId, updateToSoldByProductId, updateToNotSoldByProductId, getAllProducts, getProductsBetweenPrice, getProductsByMaxPrice, getProductsByMinPrice, getProductsByName } = require("./database");
+const { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId, deleteProductBySellerId, updateToSoldByProductId, updateToNotSoldByProductId, getAllProducts, getProductsBetweenPrice, getProductsByMaxPrice, getProductsByMinPrice, getProductsByName, getUserEmailByProductId, getUserEmailByUserId} = require("./database");
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -480,3 +480,64 @@ app.post("/filter", (req, res) => {
   }
 
 })
+
+
+app.post("/send/:product_id", (req,res) => {
+  getUserEmailByProductId(req.params.product_id)
+  .then(result => {
+    console.log(result)
+    msg['to'] = result[0].email
+    msg['from'] = 'petstoremidterm@gmail.com'
+    msg['subject'] = result[0].subject
+    msg['text'] =req.body.msg_box
+    msg['html'] = `<strong>Send Message To UserId ${req.session.user_id} To Respond</strong>`
+    sgMail.send(msg)
+    .then(() => {
+      console.log('Email Sent')
+    })
+    .catch((error) => {
+      console.error(error)
+    })
+  })
+  res.redirect(`/products/${req.params.product_id}`)
+})
+
+
+app.get("/sendmessage", (req,res) => {
+
+  getUserById(req.session.user_id)
+  .then(userData => {
+    const templateVars = {
+      user: userData,
+      seller: req.session.seller_id
+
+    }
+  res.render("send", templateVars)
+})
+})
+
+app.post("/sendmessage", (req,res) => {
+  getUserEmailByUserId(req.body.userid)
+  .then(result => {
+    console.log(result)
+    console.log(req.body)
+
+    msg['to'] = result[0].email
+    msg['from'] = 'petstoremidterm@gmail.com'
+    msg['subject'] = req.body.subject
+    msg['text'] = req.body.message
+    msg['html'] = `<strong>Send Message To UserId ${req.session.user_id} To Respond</strong>`
+
+    sgMail.send(msg)
+    .then(res => {
+      console.log('Email Sent')
+    })
+    .catch(error => {
+      console.error(error)
+    })
+    res.redirect("/sendmessage")
+  })
+
+
+})
+

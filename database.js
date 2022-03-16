@@ -173,5 +173,28 @@ const getProductsBetweenPrice = function(min,max) {
   })
 }
 
+const getUserEmailByProductId = function(id) {
+  return db.query(`
+  SELECT products.name as subject, email
+  FROM users
+  JOIN sellers ON user_id = users.id
+  JOIN products ON seller_id = sellers.id
+  WHERE products.id = $1;
+  `, [id])
+  .then(result => {
+    return result.rows
+  })
+}
 
-module.exports = { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId, deleteProductBySellerId, updateToSoldByProductId, updateToNotSoldByProductId, getAllProducts, getProductsByName, getProductsByMinPrice, getProductsByMaxPrice, getProductsBetweenPrice };
+const getUserEmailByUserId = function(id) {
+  return db.query(`
+  SELECT *
+  FROM users
+  WHERE id = $1
+  `, [id])
+  .then(result => {
+    return result.rows
+  })
+}
+
+module.exports = { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId, deleteProductBySellerId, updateToSoldByProductId, updateToNotSoldByProductId, getAllProducts, getProductsByName, getProductsByMinPrice, getProductsByMaxPrice, getProductsBetweenPrice, getUserEmailByProductId, getUserEmailByUserId };
