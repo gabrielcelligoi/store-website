@@ -1,3 +1,35 @@
+body {
+  background-color: #dedede;
+}
+
+#browse-main-container {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  width: 100%;
+  font-family: 'Work Sans', sans-serif;
+  justify-content: center;
+  align-items: center;
+
+
+  #filter-container {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 70px;
+    color: #464646;
+  }
+
+  #items-container {
+    display: block;
+    width:100%;
+    text-align: center;
+
+  }
+}
+
+
 .add {
   font-size: medium;
 }
@@ -13,4 +45,64 @@
 .delete button {
   color: white;
   background-color: #e64552;
+}
+
+
+.favorites {
+  margin: 25px;
+  height: 500px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.favorites:hover {
+  box-shadow: -10px -10px 25px 10px white, 5px 5px 25px 10px #555;
+}
+
+#favorites-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 600px;
+  align-items: center;
+  flex-wrap: wrap;
+  height: auto;
+}
+
+.favorites-img {
+  height: 400px;
+  width: 300px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.favorites-name {
+ margin-left: 8px;
+}
+
+.favorites-price {
+  margin-top: -5px;
+  margin-left: 8px;
+}
+
+.visit-btn {
+  background-color: #464646;
+  color: white;
+  font-size: 1rem;
+  padding: .375rem .75rem;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  margin-right: 10px;
+}
+
+.visit-btn:hover {
+  background-color: #53694c;
+}
+
+.favorites-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
 }
