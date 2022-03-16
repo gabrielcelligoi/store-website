@@ -9,7 +9,9 @@ const app = express();
 const morgan = require("morgan");
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
-const { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId, deleteProductBySellerId, updateToSoldByProductId, updateToNotSoldByProductId, getAllProducts, getProductsBetweenPrice, getProductsByMaxPrice, getProductsByMinPrice, getProductsByName } = require("./database");
+const sgMail = require('@sendgrid/mail')
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+const { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId, deleteProductBySellerId, updateToSoldByProductId, updateToNotSoldByProductId, getAllProducts, getProductsBetweenPrice, getProductsByMaxPrice, getProductsByMinPrice, getProductsByName, getUserEmailByProductId, getUserEmailByUserId} = require("./database");
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -68,6 +70,7 @@ app.use("/api/widgets", widgetsRoutes(db));
 
 const cart = {}
 const favorites = {}
+const msg = {}
 
 app.get("/", (req, res) => {
   console.log(req.session.user_id)
@@ -476,4 +479,75 @@ app.post("/filter", (req, res) => {
 
   }
 
+})
+
+
+app.post("/send/:product_id", (req,res) => {
+  getUserEmailByProductId(req.params.product_id)
+  .then(result => {
+    console.log(result)
+    msg['to'] = result[0].email
+    msg['from'] = 'petstoremidterm@gmail.com'
+    msg['subject'] = result[0].subject
+    msg['html'] = `${req.body.msg_box} <br>Click <a href="http://localhost:8080/sendmessage/${req.session.user_id}">Here</a> To Respond`
+    sgMail.send(msg)
+    .then(() => {
+      console.log('Email Sent')
+    })
+    .catch((error) => {
+      console.error(error)
+    })
+  })
+  res.redirect(`/products/${req.params.product_id}`)
+})
+
+
+app.get("/sendmessage", (req,res) => {
+
+  getUserById(req.session.user_id)
+  .then(userData => {
+    const templateVars = {
+      user: userData,
+      seller: req.session.seller_id,
+      value: req.params.userid
+    }
+  res.render("send", templateVars)
+})
+})
+
+app.post("/sendmessage", (req,res) => {
+  getUserEmailByUserId(req.body.userid)
+  .then(result => {
+    console.log(result)
+    console.log(req.body.message)
+
+    msg['to'] = result[0].email
+    msg['from'] = 'petstoremidterm@gmail.com'
+    msg['subject'] = req.body.subject
+    msg['html'] = `${req.body.message} <br>Click <a href="http://localhost:8080/sendmessage/${req.session.user_id}">Here</a> To Respond`
+
+    sgMail.send(msg)
+    .then(res => {
+      console.log('Email Sent')
+    })
+    .catch(error => {
+      console.error(error)
+    })
+    res.redirect("/sendmessage")
+  })
+
+
+})
+
+app.get("/sendmessage/:userid", (req,res) => {
+
+  getUserById(req.session.user_id)
+  .then(userData => {
+    const templateVars = {
+      user: userData,
+      seller: req.session.seller_id,
+      value: req.params.userid
+    }
+  res.render("send", templateVars)
+})
 })

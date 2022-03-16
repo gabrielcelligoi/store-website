@@ -42,5 +42,13 @@ $(() => {
   })
 
 
+
+ $("#add-msg-btn").submit(function(event) {
+   event.preventDefault()
+   $("#msg-container").slideToggle();
+ })
+
+
+
 })
 
