@@ -359,7 +359,9 @@ app.get("/products", (req, res) => {
 
 
 app.get("/logout", (req, res) => {
-  cart = {}
+  for (let key in cart) {
+    delete cart[key]
+  }
   req.session = null
   res.redirect("/")
 })
@@ -749,4 +751,18 @@ app.get("/sendmessage/:userid", (req,res) => {
   } else {
     res.redirect("/error1")
   }
+})
+
+app.get("/purchase", (req, res) => {
+
+  getUserById(req.session.user_id)
+  .then(userData => {
+    const templateVars = {
+      user: userData,
+      seller: req.session.seller_id,
+      value: req.params.userid
+    }
+  res.render("purchase", templateVars)
+})
+
 })
