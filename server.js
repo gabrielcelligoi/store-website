@@ -11,7 +11,7 @@ const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const sgMail = require('@sendgrid/mail')
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-const { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId, deleteProductBySellerId, updateToSoldByProductId, updateToNotSoldByProductId, getAllProducts, getProductsBetweenPrice, getProductsByMaxPrice, getProductsByMinPrice, getProductsByName, getUserEmailByProductId, getUserEmailByUserId} = require("./database");
+const { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId, deleteProductBySellerId, updateToSoldByProductId, updateToNotSoldByProductId, getAllProducts, getProductsBetweenPrice, getProductsByMaxPrice, getProductsByMinPrice, getProductsByName, getUserEmailByProductId, getUserEmailByUserId, getProductsOrderByName, getProductsOrderByNameDesc, getProductsOrderByPrice, getProductsOrderByPriceDesc } = require("./database");
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -576,6 +576,85 @@ app.post("/filter", (req, res) => {
 
 })
 
+app.post("/a-z", (req, res) => {
+  getUserById(req.session.user_id)
+  .then(userData => {
+    return userData
+  })
+  .then(userData => {
+    getProductsOrderByName()
+    .then(data => {
+      const templateVars = {
+        user: userData,
+        seller: req.session.seller_id,
+        product: data
+      }
+      console.log(templateVars['product'])
+      res.render("browse", templateVars);
+
+    })
+  })
+})
+
+app.post("/z-a", (req, res) => {
+  getUserById(req.session.user_id)
+  .then(userData => {
+    return userData
+  })
+  .then(userData => {
+    getProductsOrderByNameDesc()
+    .then(data => {
+      const templateVars = {
+        user: userData,
+        seller: req.session.seller_id,
+        product: data
+      }
+      console.log(templateVars['product'])
+      res.render("browse", templateVars);
+
+    })
+  })
+})
+
+app.post("/min-max", (req, res) => {
+  getUserById(req.session.user_id)
+  .then(userData => {
+    return userData
+  })
+  .then(userData => {
+    getProductsOrderByPrice()
+    .then(data => {
+      const templateVars = {
+        user: userData,
+        seller: req.session.seller_id,
+        product: data
+      }
+      console.log(templateVars['product'])
+      res.render("browse", templateVars);
+
+    })
+  })
+})
+
+app.post("/max-min", (req, res) => {
+  getUserById(req.session.user_id)
+  .then(userData => {
+    return userData
+  })
+  .then(userData => {
+    getProductsOrderByPriceDesc()
+    .then(data => {
+      const templateVars = {
+        user: userData,
+        seller: req.session.seller_id,
+        product: data
+      }
+      console.log(templateVars['product'])
+      res.render("browse", templateVars);
+
+    })
+  })
+})
 
 app.post("/send/:product_id", (req,res) => {
 
