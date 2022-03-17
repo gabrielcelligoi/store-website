@@ -90,12 +90,12 @@ body {
 
 .button-browse {
   text-decoration: none;
-  color: #464646;
+  color: white;
   font-size: 18px;
   text-transform: uppercase;
   padding: 0px 20px;
-  background-color: transparent;
-  border-color: transparent;
+  background-color: #464646;
+  cursor: pointer;
 }
 
 .add-to-cart-btn{
@@ -105,6 +105,7 @@ body {
   padding: .375rem .75rem;
   border: 1px solid transparent;
   border-radius: .25rem;
+  cursor: pointer;
 }
 
 .add-to-cart-btn:hover {

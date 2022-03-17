@@ -32,7 +32,7 @@
               <th scope="col">Price</th>
               <th scope="col">Visit</th>
               <th scope="col">Delete</th>
-              <th scope="col">Mark as Sold</th>
+              <th scope="col">Status</th>
             </tr>
 
           </thead>
@@ -51,7 +51,7 @@
                 </form></td>
                 <% if (product.sold) { %>
                   <td><form method="POST" action="/sellerlistings/<%=product.id%>/u">
-                    <button class="btn btn-danger" type="submit">SOLD</button>
+                    <button class="btn btn-danger" type="submit">Mark As Not SOLD</button>
                   </form></td>
                 <% } %>
                 <% if (!product.sold) { %>
