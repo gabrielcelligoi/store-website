@@ -7,9 +7,8 @@ db.connect();
 
 const getUserWithEmail = function(email) {
   return db.query(`
-  SELECT users.*, sellers.id as seller_id
+  SELECT *
   FROM users
-  JOIN sellers ON users.id = user_id
   WHERE email = $1;
   `, [email])
   .then(data => {
