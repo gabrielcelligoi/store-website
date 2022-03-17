@@ -49,12 +49,19 @@
                 <td><form method="POST" action="/sellerlistings/<%=product.id%>">
                   <button class="btn btn-outline-danger" type="submit">DELETE</button>
                 </form></td>
-                <td><form method="POST" action="/sellerlistings/<%=product.id%>/s">
-                  <button class="btn btn-outline-danger" type="submit">SOLD</button>
-                </form></td>
-              </tr>
+                <% if (product.sold) { %>
+                  <td><form method="POST" action="/sellerlistings/<%=product.id%>/u">
+                    <button class="btn btn-danger" type="submit">SOLD</button>
+                  </form></td>
                 <% } %>
-                </tbody>
+                <% if (!product.sold) { %>
+                  <td><form method="POST" action="/sellerlistings/<%=product.id%>/s">
+                    <button class="btn btn-outline-danger" type="submit">Mark as SOLD</button>
+                  </form></td>
+                <% } %>
+              </tr>
+              <% } %>
+          </tbody>
         </table>
       </div>
     </div>

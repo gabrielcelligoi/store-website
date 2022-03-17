@@ -444,6 +444,20 @@ app.post("/sellerlistings/:product_id/s", (req, res) => {
 
 })
 
+app.post("/sellerlistings/:product_id/u", (req, res) => {
+  if (req.session.seller_id) {
+    updateToNotSoldByProductId(req.params.product_id)
+    .then(data => {
+      return data;
+    })
+
+    res.redirect("/sellerlistings")
+  } else {
+    res.redirect("error2");
+  }
+
+})
+
 app.post("/cart/:product_id", (req, res) => {
 
   if (req.session.user_id) {
