@@ -359,6 +359,7 @@ app.get("/products", (req, res) => {
 
 
 app.get("/logout", (req, res) => {
+  cart = {}
   req.session = null
   res.redirect("/")
 })
