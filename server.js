@@ -290,6 +290,7 @@ app.get("/products/:product_id", (req, res) => {
 
 app.post('/products/:product_id', (req, res) => {
 
+  if (req.session.user_id)  {
   getProduct(req.params.product_id)
   .then(data => {
     return cart[Object.keys(cart).length + 1] = data[0]
@@ -302,7 +303,9 @@ app.post('/products/:product_id', (req, res) => {
 
     res.redirect(`/products/${req.params.product_id}`)
   })
-
+  } else {
+    res.redirect('/error1')
+  }
 })
 
 app.get("/cart", (req, res) => {
