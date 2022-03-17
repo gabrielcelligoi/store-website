@@ -202,10 +202,10 @@ app.get("/login", (req, res) => {
 app.post("/login", (req, res) => {
   const loginEmail = req.body.email;
   const loginPassword = req.body.password;
-
   const login =  function(email, password) {
     return getUserWithEmail(email)
     .then(user => {
+      console.log(user)
       if (bcrypt.compareSync(password, user.password)) {
         return user;
       }
@@ -219,13 +219,14 @@ app.post("/login", (req, res) => {
           res.send({error: "error"});
           return;
         }
-        console.log(user)
         req.session.user_id = user.id;
         req.session.seller_id = user.seller_id
         // res.send({user: {name: user.name, email: user.email, id: user.id}});
         return res.redirect("/");
       })
-      .catch(e => res.send(e));
+      .catch(e =>  {
+        console.error(e)
+      });
 
 
 })

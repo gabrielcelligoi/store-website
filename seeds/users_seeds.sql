@@ -7,7 +7,6 @@ VALUES
 ('Rosalie Garza', 'osalie@ymail.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.', 'Canada', '1015 Bank St', 'Ottawa', 'ON', 'K1S 3W7'),
 ('Etta West', 'tta@ymail.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.', 'Canada', '4545 Pierre-de Coubertin Ave', 'Montreal', 'QC', 'H1V 0B2'),
 ('Leroy Hart', 'eroy@ymail.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.', 'Canada', '290 Bremner Blvd', 'Toronto', 'ON', 'M5V 3L9');
-
 INSERT INTO cards (user_id, brand, number, exp_date, cvc)
 VALUES
 (1, 'visa', 4485293917719087, '11/2028', 283),
