@@ -55,6 +55,7 @@ app.use(cookieSession({
 const usersRoutes = require("./routes/users");
 const widgetsRoutes = require("./routes/widgets");
 const { user } = require("pg/lib/defaults");
+const { redirect } = require("express/lib/response");
 // const registerRoutes = require("./routes/register");
 
 // Mount all resource routes
@@ -427,6 +428,20 @@ if (req.session.seller_id) {
 } else {
   res.redirect("error2")
 }
+})
+
+app.post("/sellerlistings/:product_id/s", (req, res) => {
+  if (req.session.seller_id) {
+    updateToSoldByProductId(req.params.product_id)
+    .then(data => {
+      return data;
+    })
+
+    res.redirect("/sellerlistings")
+  } else {
+    res.redirect("error2");
+  }
+
 })
 
 app.post("/cart/:product_id", (req, res) => {

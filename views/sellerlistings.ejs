@@ -32,6 +32,7 @@
               <th scope="col">Price</th>
               <th scope="col">Visit</th>
               <th scope="col">Delete</th>
+              <th scope="col">Mark as Sold</th>
             </tr>
 
           </thead>
@@ -47,6 +48,9 @@
                 </td>
                 <td><form method="POST" action="/sellerlistings/<%=product.id%>">
                   <button class="btn btn-outline-danger" type="submit">DELETE</button>
+                </form></td>
+                <td><form method="POST" action="/sellerlistings/<%=product.id%>/s">
+                  <button class="btn btn-outline-danger" type="submit">SOLD</button>
                 </form></td>
               </tr>
                 <% } %>
