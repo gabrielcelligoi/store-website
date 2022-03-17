@@ -34,32 +34,44 @@
         </form>
       </div>
 
-      <div id="by-price">
-        <h4>By Price</h4>
-        <div id="min-max">
-          <form method="POST" action="/min-max">
-            <button class="add-to-cart-btn" type="submit">MIN - MAX</button>
-          </form>
-        </div>
-        <div id="max-min">
-          <form method="POST" action="/max-min">
-            <button class="add-to-cart-btn" type="submit">MAX - MIN</button>
-          </form>
-        </div>
+
+
+      <div class="drop-menu">
+        <ul>
+          <li><h4>By Price</h4>
+            <ul class="drop-list">
+              <li>
+                <form method="POST" action="/min-max">
+                  <button class="drop-btn" type="submit">MIN - MAX</button>
+                </form>
+              </li>
+              <li>
+                <form method="POST" action="/max-min">
+                  <button class="drop-btn" type="submit">MAX - MIN</button>
+                </form>
+              </li>
+            </ul>
+          </li>
+        </ul>
       </div>
 
-      <div id="alphabetical">
-        <h4>Alphabetically</h4>
-        <div id="a-z">
-          <form method="POST" action="/a-z">
-            <button class="add-to-cart-btn" type="submit">A - Z</button>
-          </form>
-        </div>
-        <div id="z-a">
-          <form method="POST" action="/z-a">
-            <button class="add-to-cart-btn" type="submit">Z - A</button>
-          </form>
-        </div>
+      <div class="drop-menu">
+        <ul>
+          <li><h4>Alphabetically</h4>
+            <ul class="drop-list">
+              <li>
+                <form method="POST" action="/a-z">
+                  <button class="drop-btn" type="submit">A - Z</button>
+                </form>
+              </li>
+              <li>
+                <form method="POST" action="/z-a">
+                  <button class="drop-btn" type="submit">Z - A</button>
+                </form>
+              </li>
+            </ul>
+          </li>
+        </ul>
       </div>
 
 

@@ -108,5 +108,41 @@ body {
 }
 
 .add-to-cart-btn:hover {
-  background-color: #53694c;
+  color: #7e9c57;
 }
+
+.drop-menu ul li {
+  list-style-type: none;
+  padding: 0;
+  background-color: transparent;
+}
+
+.drop-btn {
+  background-color: transparent;
+  color: #464646;
+  font-size: 1rem;
+  padding: .375rem .75rem;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+}
+
+.drop-btn:hover {
+  color: #7e9c57;
+}
+
+
+.drop-list {
+  display: none;
+  position: relative;
+
+}
+
+.drop-menu ul li:hover {
+  color: #7e9c57;
+
+  .drop-list {
+    display: block;
+
+  }
+}
+
