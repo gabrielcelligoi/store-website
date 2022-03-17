@@ -2,6 +2,16 @@ body {
   background-color: #dedede;
 }
 
+#filters-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  font-family: 'Work Sans', sans-serif;
+  color: #464646;
+}
+
+
+
 #browse-main-container {
   display: flex;
   flex-direction: column;

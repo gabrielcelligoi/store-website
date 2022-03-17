@@ -17,52 +17,87 @@
 
 <body>
   <div id="browse-main-container">
-    <div id="filter-container">
-      <h4>Price Filters</h4>
-      <form method="POST" action="/filter" id="filter">
-        <div class="input-wrap">
-        <label for="min" name="min"></label>
-        <input type="text" class="form-control" name="min" placeholder="Min">
+
+    <div id="filters-top">
+      <div id="filter-container">
+        <h4>Price Filters</h4>
+        <form method="POST" action="/filter" id="filter">
+          <div class="input-wrap">
+            <label for="min" name="min"></label>
+            <input type="text" class="form-control" name="min" placeholder="Min">
+          </div>
+          <div class="input-wrap">
+            <label for="max" name="max"></label>
+            <input type="text" class="form-control" name="max" placeholder="Max">
+          </div>
+          <button class="button-browse" type="submit">Submit</button>
+        </form>
       </div>
-      <div class="input-wrap">
-        <label for="max" name="max"></label>
-        <input type="text" class="form-control" name="max" placeholder="Max">
+
+      <div id="by-price">
+        <h4>By Price</h4>
+        <div id="min-max">
+          <form method="POST" action="/min-max">
+            <button class="add-to-cart-btn" type="submit">MIN - MAX</button>
+          </form>
+        </div>
+        <div id="max-min">
+          <form method="POST" action="/max-min">
+            <button class="add-to-cart-btn" type="submit">MAX - MIN</button>
+          </form>
+        </div>
       </div>
-        <button class="button-browse" type="submit">Submit</button>
-      </form>
+
+      <div id="alphabetical">
+        <h4>Alphabetically</h4>
+        <div id="a-z">
+          <form method="POST" action="/a-z">
+            <button class="add-to-cart-btn" type="submit">A - Z</button>
+          </form>
+        </div>
+        <div id="z-a">
+          <form method="POST" action="/z-a">
+            <button class="add-to-cart-btn" type="submit">Z - A</button>
+          </form>
+        </div>
+      </div>
+
+
     </div>
 
 
-        <div id="products-container-browser">
+    <div id="products-container-browser">
 
-          <% for (let key in product) { %>
-            <article class="product-browse" id="product<%= product[key].id %>">
-              <section class="product-img-browser">
-                <img class="image-browser" src=<%= product[key].image %> >
-                <div class="add-to-cart-browser">
-                  <form class="add" method="GET" action="/products/<%= product[key].id %>">
-                  <button class="add-to-cart-btn"type="submit">Visit</button>
-                  </form>
-                </div>
-              </section>
-              <section class="product-name-browser">
-                <h6><%= product[key].name %></h6>
-              </section>
-              <section class="product-price-browser">
-                <p>$<%= product[key].price / 100 %></p>
-              </section>
-            </article>
-          <% } %>
+      <% for (let key in product) { %>
+        <article class="product-browse" id="product<%= product[key].id %>">
+          <section class="product-img-browser">
+            <img class="image-browser" src=<%= product[key].image %> >
+            <div class="add-to-cart-browser">
+              <form class="add" method="GET" action="/products/<%= product[key].id %>">
+              <button class="add-to-cart-btn"type="submit">Visit</button>
+              </form>
+            </div>
+           </section>
+          <section class="product-name-browser">
+            <h6><%= product[key].name %></h6>
+          </section>
+          <section class="product-price-browser">
+            <p>$<%= product[key].price / 100 %></p>
+          </section>
+        </article>
+      <% } %>
 
-
-
-          </div>
 
 
       </div>
+
+
+
 
   </div>
 
   <%- include('partials/_footer') %>
 
+
 </body>
+</html>

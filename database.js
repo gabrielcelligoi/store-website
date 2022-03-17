@@ -198,4 +198,49 @@ const getUserEmailByUserId = function(id) {
   })
 }
 
-module.exports = { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId, deleteProductBySellerId, updateToSoldByProductId, updateToNotSoldByProductId, getAllProducts, getProductsByName, getProductsByMinPrice, getProductsByMaxPrice, getProductsBetweenPrice, getUserEmailByProductId, getUserEmailByUserId };
+const getProductsOrderByName = function() {
+  return db.query(`
+  SELECT *
+  FROM products
+  ORDER BY name;
+  `)
+  .then(products => {
+    return products.rows
+  })
+}
+
+const getProductsOrderByNameDesc = function() {
+  return db.query(`
+  SELECT *
+  FROM products
+  ORDER BY name DESC;
+  `)
+  .then(products => {
+    return products.rows
+  })
+}
+
+const getProductsOrderByPrice = function() {
+  return db.query(`
+  SELECT *
+  FROM products
+  ORDER BY price;
+  `)
+  .then(products => {
+    return products.rows
+  })
+}
+
+const getProductsOrderByPriceDesc = function() {
+  return db.query(`
+  SELECT *
+  FROM products
+  ORDER BY price DESC;
+  `)
+  .then(products => {
+    return products.rows
+  })
+}
+
+
+module.exports = { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId, deleteProductBySellerId, updateToSoldByProductId, updateToNotSoldByProductId, getAllProducts, getProductsByName, getProductsByMinPrice, getProductsByMaxPrice, getProductsBetweenPrice, getUserEmailByProductId, getUserEmailByUserId, getProductsOrderByName, getProductsOrderByNameDesc, getProductsOrderByPrice, getProductsOrderByPriceDesc };

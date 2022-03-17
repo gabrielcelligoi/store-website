@@ -11,7 +11,7 @@ const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const sgMail = require('@sendgrid/mail')
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-const { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId, deleteProductBySellerId, updateToSoldByProductId, updateToNotSoldByProductId, getAllProducts, getProductsBetweenPrice, getProductsByMaxPrice, getProductsByMinPrice, getProductsByName, getUserEmailByProductId, getUserEmailByUserId} = require("./database");
+const { getUserWithEmail, getProduct, createListing, featuredProductsList, getUserById, getProductsBySellerId, deleteProductBySellerId, updateToSoldByProductId, updateToNotSoldByProductId, getAllProducts, getProductsBetweenPrice, getProductsByMaxPrice, getProductsByMinPrice, getProductsByName, getUserEmailByProductId, getUserEmailByUserId, getProductsOrderByName, getProductsOrderByNameDesc, getProductsOrderByPrice, getProductsOrderByPriceDesc } = require("./database");
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -55,6 +55,7 @@ app.use(cookieSession({
 const usersRoutes = require("./routes/users");
 const widgetsRoutes = require("./routes/widgets");
 const { user } = require("pg/lib/defaults");
+const { redirect } = require("express/lib/response");
 // const registerRoutes = require("./routes/register");
 
 // Mount all resource routes
@@ -432,6 +433,34 @@ if (req.session.seller_id) {
 }
 })
 
+app.post("/sellerlistings/:product_id/s", (req, res) => {
+  if (req.session.seller_id) {
+    updateToSoldByProductId(req.params.product_id)
+    .then(data => {
+      return data;
+    })
+
+    res.redirect("/sellerlistings")
+  } else {
+    res.redirect("error2");
+  }
+
+})
+
+app.post("/sellerlistings/:product_id/u", (req, res) => {
+  if (req.session.seller_id) {
+    updateToNotSoldByProductId(req.params.product_id)
+    .then(data => {
+      return data;
+    })
+
+    res.redirect("/sellerlistings")
+  } else {
+    res.redirect("error2");
+  }
+
+})
+
 app.post("/cart/:product_id", (req, res) => {
 
   if (req.session.user_id) {
@@ -550,6 +579,85 @@ app.post("/filter", (req, res) => {
 
 })
 
+app.post("/a-z", (req, res) => {
+  getUserById(req.session.user_id)
+  .then(userData => {
+    return userData
+  })
+  .then(userData => {
+    getProductsOrderByName()
+    .then(data => {
+      const templateVars = {
+        user: userData,
+        seller: req.session.seller_id,
+        product: data
+      }
+      console.log(templateVars['product'])
+      res.render("browse", templateVars);
+
+    })
+  })
+})
+
+app.post("/z-a", (req, res) => {
+  getUserById(req.session.user_id)
+  .then(userData => {
+    return userData
+  })
+  .then(userData => {
+    getProductsOrderByNameDesc()
+    .then(data => {
+      const templateVars = {
+        user: userData,
+        seller: req.session.seller_id,
+        product: data
+      }
+      console.log(templateVars['product'])
+      res.render("browse", templateVars);
+
+    })
+  })
+})
+
+app.post("/min-max", (req, res) => {
+  getUserById(req.session.user_id)
+  .then(userData => {
+    return userData
+  })
+  .then(userData => {
+    getProductsOrderByPrice()
+    .then(data => {
+      const templateVars = {
+        user: userData,
+        seller: req.session.seller_id,
+        product: data
+      }
+      console.log(templateVars['product'])
+      res.render("browse", templateVars);
+
+    })
+  })
+})
+
+app.post("/max-min", (req, res) => {
+  getUserById(req.session.user_id)
+  .then(userData => {
+    return userData
+  })
+  .then(userData => {
+    getProductsOrderByPriceDesc()
+    .then(data => {
+      const templateVars = {
+        user: userData,
+        seller: req.session.seller_id,
+        product: data
+      }
+      console.log(templateVars['product'])
+      res.render("browse", templateVars);
+
+    })
+  })
+})
 
 app.post("/send/:product_id", (req,res) => {
 
