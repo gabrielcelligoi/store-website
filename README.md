@@ -30,6 +30,10 @@ The PetStore is an app that allows buyers find the items they are looking for qu
 
 ## Final Product
 
+!["Home Page"](https://github.com/gabrielcelligoi/store-website/blob/root-page/doc/homepage.png?raw=true)
+
+!["Home Page"](https://github.com/gabrielcelligoi/store-website/blob/root-page/doc/register-page.png?raw=true)
+
 
 ## Getting Started
 
